@@ -21,12 +21,12 @@ chrome.webRequest.onBeforeSendHeaders.addListener(function(details) {
 }, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders", "extraHeaders"]);
 
 // 过滤weather的某些请求
-chrome.webRequest.onBeforeRequest.addListener(function(details) {
-        return {cancel: true};
-    },
-    {
-        urls: [
-
-        ]
-    },
-["blocking"]);
+// chrome.webRequest.onBeforeRequest.addListener(function(details) {
+//         return {cancel: true};
+//     },
+//     {
+//         urls: [
+//
+//         ]
+//     },
+// ["blocking"]);
