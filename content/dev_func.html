@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="assets/js/theme.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/plugin/font-awesome/5.11.2/css/all.css">
+    <link href="assets/css/dev.css" rel="stylesheet">
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+    <title>New Tab</title>
+</head>
+<body>
+<div class="wrapper">
+    <nav id="sidebar" class="active">
+        <ul class="navbar-nav mr-auto normal-search">
+            <li class="nav-item context-normal active">
+                <a class="nav-link" href="dev_func.html">函数</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_json.html">JSON</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_request.html">请求</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_calendar.html">日历</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_md.html">MD</a>
+            </li>
+        </ul>
+        <ul class="list-unstyled">
+            <li><a href="index.html"><i class="fas fa-home"></i></a></li>
+        </ul>
+    </nav>
+    <div id="content">
+            <form id="submit-random"> <!-- 随机 -->
+                <div class="form-row align-items-center">
+                    <div class="col-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">随机</div>
+                            </div>
+                            <input name="random_length" type="number" value="10" class="form-control auto-save" placeholder="输入长度">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group form-check form-check-inline">
+                            <input name="random_type" checked class="form-check-input" id="random_type1" type="checkbox" value="1">
+                            <label class="form-check-label" for="random_type1">数字</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="random_type" checked class="form-check-input" id="random_type2" type="checkbox" value="2">
+                            <label class="form-check-label" for="random_type2">小写</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="random_type" class="form-check-input" id="random_type3" type="checkbox" value="3">
+                            <label class="form-check-label" for="random_type3">大写</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="random_type" class="form-check-input" id="random_type4" type="checkbox" value="4">
+                            <label class="form-check-label" for="random_type4">特殊字符</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="random_type" class="form-check-input" id="random_type5" type="checkbox" value="5">
+                            <label class="form-check-label" for="random_type5">UUID</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="random">Random</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-hash"> <!-- 哈希 -->
+                <div class="form-row align-items-center">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">哈希</div>
+                            </div>
+                            <input name="hash_string" type="text" value="" class="form-control auto-save" placeholder="Enter string">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="hash_type" id="hash_type1" checked type="radio" value="1">
+                            <label class="form-check-label" for="hash_type1">MD5</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="hash_type" id="hash_type2" type="radio" value="2">
+                            <label class="form-check-label" for="hash_type2">SHA1</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="hash_type" id="hash_type3" type="radio" value="3">
+                            <label class="form-check-label" for="hash_type3">SHA256</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="hash_type" id="hash_type4" type="radio" value="4">
+                            <label class="form-check-label" for="hash_type4">SHA512</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" name="hash_type" id="hash_type5" type="radio" value="5">
+                            <label class="form-check-label" for="hash_type5">RMD160</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary  mb-2" data-type="hash">Hash</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-code"> <!-- Code -->
+                <div class="form-row align-items-end">
+                    <div class="col-4">
+                        <textarea name="code_string" class="form-control auto-save" rows="4" placeholder="Enter string"></textarea>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type1" checked class="form-check-input" type="radio" value="1">
+                            <label class="form-check-label" for="code_type1">base64_E</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type2" class="form-check-input" type="radio" value="2">
+                            <label class="form-check-label" for="code_type2">base64_D</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type3" class="form-check-input" type="radio" value="3">
+                            <label class="form-check-label" for="code_type3">url_E</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type4" class="form-check-input" type="radio" value="4">
+                            <label class="form-check-label" for="code_type4">url_D</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type5" class="form-check-input" type="radio" value="5">
+                            <label class="form-check-label" for="code_type5">html_E</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type6" class="form-check-input" type="radio" value="6">
+                            <label class="form-check-label" for="code_type6">html_D</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="code_type" id="code_type7" class="form-check-input" type="radio" value="7">
+                            <label class="form-check-label" for="code_type7">reverse</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary  mb-2" data-type="code">Code</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-query"> <!-- 请求 -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">请求</div>
+                            </div>
+                            <input type="text" name="query_string" class="form-control auto-save" placeholder="json <-> query">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="query">Query</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-hex"> <!-- HEX -->
+                <div class="form-row align-items-center">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">HEX</div>
+                            </div>
+                            <input name="hex_string" type="text" value="10" class="form-control auto-save" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input name="hex_type" id="hex_type1" class="form-check-input" checked type="radio" value="1">
+                            <label class="form-check-label" for="hex_type1">str2hex</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="hex_type" id="hex_type2" class="form-check-input" type="radio" value="2">
+                            <label class="form-check-label" for="hex_type2">hex2str</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="hex">Hex</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-timestamp"> <!-- 时间 -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">时间</div>
+                            </div>
+                            <input name="timestamp_string" type="text" value="" class="form-control auto-save" placeholder="string <-> timestamp">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="timestamp">Timestamp</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-translate"> <!-- 翻译 -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">翻译</div>
+                            </div>
+                            <input name="translate_string" type="text" class="form-control auto-save" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="translate">Translate</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-pinyin"> <!-- 拼音 -->
+                <div class="form-row align-items-center">
+                    <div class="col-4">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">拼音</div>
+                            </div>
+                            <input name="pinyin_string" type="text" class="form-control auto-save auto-submit" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <input name="pinyin_separator" class="form-control auto-save auto-submit" placeholder="Enter Separator String">
+                    </div>
+                    <div class="col">
+                        <div class="form-check form-check-inline">
+                            <input name="pinyin_format" checked class="form-check-input" id="pinyin_type1" type="radio" value="WITHOUT_TONE">
+                            <label class="form-check-label" for="pinyin_type1">纯拼音</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="pinyin_format" class="form-check-input" id="pinyin_type2" type="radio" value="WITH_TONE_MARK">
+                            <label class="form-check-label" for="pinyin_type2">声调</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="pinyin_format" class="form-check-input" id="pinyin_type3" type="radio" value="WITH_TONE_NUMBER">
+                            <label class="form-check-label" for="pinyin_type3">数字声调</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="pinyin_format" class="form-check-input" id="pinyin_type4" type="radio" value="FIRST_LETTER">
+                            <label class="form-check-label" for="pinyin_type4">首字母</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="pinyin">Pinyin</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-qrcode"> <!-- Qrcode -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">QR</div>
+                            </div>
+                            <input name="qrcode_string" type="text" value="" class="form-control auto-save auto-submit" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input name="qrcode_size" type="number" value="100" class="form-control" placeholder="Enter Width Size">
+                    </div>
+                    <div class="col-2">
+                        <div class="custom-file">
+                            <input name="qrcode_logo" type="file" class="custom-file-input" id="qrcode_logo">
+                            <label class="custom-file-label" for="qrcode_logo">Choose Logo</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="qrcode">Qrcode</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-location"> <!-- IP -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">IP</div>
+                            </div>
+                            <input id="location_string" type="text" name="location_string" class="form-control auto-save" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <button id="location_ip" class="btn btn-link">IP</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="location">Location</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-xor"> <!-- 异或 -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">异或</div>
+                            </div>
+                            <input type="text" name="xor_string" class="form-control auto-save auto-submit" placeholder="Enter String">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input type="text" name="xor_key" class="form-control auto-save auto-submit" placeholder="Xor Key">
+                    </div>
+                    <div class="col-2">
+                        <div class="form-check form-check-inline">
+                            <input name="xor_type" class="form-check-input" id="xor_type1" checked type="radio" value="1">
+                            <label class="form-check-label" for="xor_type1">加密</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="xor_type" class="form-check-input" id="xor_type2" type="radio" value="2">
+                            <label class="form-check-label" for="xor_type2">解密</label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="xor">Xor</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-sign"> <!-- 签名 -->
+                <div class="form-row align-items-center">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">签名</div>
+                            </div>
+                            <input type="text" name="sign_string" class="form-control auto-save auto-submit" placeholder="Enter JSON String">
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-check form-check-inline">
+                            <input name="sign_type" class="form-check-input" id="sign_type1" checked type="radio" value="1">
+                            <label class="form-check-label" for="sign_type1">md5</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="sign_type" class="form-check-input" id="sign_type2" type="radio" value="2">
+                            <label class="form-check-label" for="sign_type2">sha1</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <input name="sign_key" type="text" class="form-control auto-save auto-submit" placeholder="Sign Key">
+                    </div>
+                    <div class="col-2">
+                        <input name="sign_exclude" type="text" class="form-control auto-save auto-submit" placeholder="需要排除的key，逗号分隔">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="sign">Sign</button>
+                    </div>
+                </div>
+            </form>
+            <form id="submit-beian"> <!-- 备案 -->
+            <div class="form-row align-items-center">
+                <div class="col">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">备案</div>
+                        </div>
+                        <input type="text" name="beian_string" class="form-control auto-save auto-submit" placeholder="Doman eg. hisune.com">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <input type="text" name="beian_code" id="beian-code" value="" class="form-control" placeholder="验证码">
+                </div>
+                <div class="col-2 btn btn-link" id="beian-code-refresh">
+                    获取验证码
+                </div>
+                <div class="col-auto">
+                    <button type="button" class="btn btn-primary btn-auto-submit mb-2" data-type="beian">备案</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="assets/plugin/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/plugin/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="assets/plugin/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="assets/plugin/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="assets/plugin/pinyin4js/pinyin4js.js"></script>
+<script src="assets/plugin/qrcode/qrcode.min.js"></script>
+<script src="assets/plugin/xor/xor.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/dev_func.js"></script>
+<script src="assets/plugin/jshashes/1.0.7/hashes.min.js"></script>
+</body>
+</html>

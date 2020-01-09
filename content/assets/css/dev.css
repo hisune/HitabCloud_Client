@@ -1,0 +1,197 @@
+body{
+    opacity: 0;
+}
+.container-fluid{
+    padding: 30px 60px;
+}
+.alert-message code{
+    margin-right: 15px;
+    cursor: pointer;
+}
+#result-qrcode canvas{
+    margin-right: 10px;
+}
+#json-left, #json-right{
+    padding-bottom: 15px;
+    height: 90vh;
+}
+#float-icon{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 20px;
+}
+#sidebar{
+    height: 100vh;
+}
+#content-list{
+    overflow: scroll;
+    height: calc(100% - 93px);
+}
+.list-unstyled{
+    margin-bottom: 0;
+}
+/*json*/
+.upsert-icon-edit, .delete-icon{
+    display: none;
+}
+/*calendar*/
+.yes-holiday-span{
+    background: darkgreen;
+    color: #fff;
+}
+.not-holiday-span{
+    background: red;
+    color: #fff;
+}
+.yes-holiday-span, .not-holiday-span{
+    padding: 0 3px;
+    font-size: 12px;
+    margin-left: 4px;
+}
+/*dark mode*/
+#sidebar ul li a:hover {
+    color: #fff !important;
+    background: #6d7fcc !important;
+}
+.dark-mode label.custom-file-label{
+    background-color: #000;
+}
+.dark-mode label.custom-file-label:after{
+    background-color: #343a40;
+    color: #dee2e6;
+}
+/*dark mode - json*/
+.dark-mode div.jsoneditor-menu{
+    color: #d3d3d3 !important;
+    background-color: #24282D !important;
+}
+.dark-mode div.jsoneditor, div.jsoneditor-menu{
+    border-color: #343a40 !important;
+}
+.dark-mode .ace-jsoneditor .ace_scroller {
+    background-color: #191B1E !important;
+}
+.dark-mode .ace_active-line{
+    background-color: #3D434B!important;
+}
+.dark-mode .ace-jsoneditor .ace_variable{
+    color: #fff;
+}
+.dark-mode .jsoneditor{
+    background-color: #191B1E !important;
+}
+.dark-mode .jsoneditor-popover, .jsoneditor-schema-error, div.jsoneditor td, div.jsoneditor textarea, div.jsoneditor th, div.jsoneditor-field, div.jsoneditor-value, pre.jsoneditor-preview{
+    color: #fff;
+}
+.dark-mode .jsoneditor-navigation-bar{
+    background-color: #343a40 !important;
+    border-bottom: 1px solid #343a40 !important;
+}
+.dark-mode div.notification{
+    color:#fff !important;
+    background-color:#24282D !important;
+    border:1px solid #24282D !important;
+}
+.dark-mode .ace-jsoneditor .ace_gutter-active-line{
+    background-color: #000 !important;
+}
+.dark-mode .ace-jsoneditor .ace_gutter{
+    color: #d3d3d3 !important;
+}
+.dark-mode .ace-jsoneditor .ace_gutter, .dark-mode .jsoneditor-statusbar{
+    background-color: #343a40 !important;
+}
+.dark-mode .jsoneditor-statusbar{
+    border-top: 1px solid #343a40 !important;
+    color: #dee2e6 !important;
+}
+.dark-mode .parse-error pre{
+    color: #dee2e6 !important;
+}
+.dark-mode .jsoneditor-frame{
+    background-color: #000 !important;
+}
+.dark-mode .jsoneditor-frame button, .dark-mode .jsoneditor-frame input {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+.dark-mode div.jsoneditor-field.jsoneditor-highlight, .dark-mode div.jsoneditor-field[contenteditable=true]:focus, .dark-mode div.jsoneditor-field[contenteditable=true]:hover, .dark-mode div.jsoneditor-value.jsoneditor-highlight, .dark-mode div.jsoneditor-value[contenteditable=true]:focus, .dark-mode div.jsoneditor-value[contenteditable=true]:hover{    background-color: #000 !important;
+    border: 1px solid #3D434B !important;
+}
+.dark-mode div.jsoneditor-field.jsoneditor-highlight-active, .dark-mode div.jsoneditor-field.jsoneditor-highlight-active:focus, .dark-mode div.jsoneditor-field.jsoneditor-highlight-active:hover, .dark-mode div.jsoneditor-value.jsoneditor-highlight-active, .dark-mode div.jsoneditor-value.jsoneditor-highlight-active:focus, .dark-mode div.jsoneditor-value.jsoneditor-highlight-active:hover{
+    background-color: #3D434B !important;
+    border: 1px solid #3D434B !important;
+}
+/*dark mode - calendar 需要手动修改main.min.css中的.fc-unthemed td.fc-today背景为#000*/
+.dark-mode .fc-unthemed td, .dark-mode .fc-unthemed th{
+    border-color: #383839 !important;
+    padding: 2px;
+}
+.dark-mode .fc-nonbusiness{
+    background: #262C33 !important;
+}
+.dark-mode .fc-unthemed .fc-divider,.dark-mode .fc-unthemed .fc-list-heading td,.dark-mode .fc-unthemed .fc-popover .fc-header{
+    background: #383839 !important;
+}
+.dark-mode .fc-unthemed .fc-content,.dark-mode .fc-unthemed .fc-divider,.dark-mode .fc-unthemed .fc-list-heading td,.dark-mode .fc-unthemed .fc-list-view,.dark-mode .fc-unthemed .fc-popover,.dark-mode .fc-unthemed .fc-row,.dark-mode .fc-unthemed tbody,.dark-mode .fc-unthemed td,.dark-mode .fc-unthemed th,.dark-mode .fc-unthemed thead{
+    border-color: #383839 !important;
+}
+.dark-mode .fc-unthemed .fc-list-item:hover td{
+    background-color: #000 !important;
+}
+/*dark mode - md*/
+.dark-mode .CodeMirror-scroll, .dark-mode .te-ww-container{
+    color: #dee2e6 !important;
+    background-color: #191D21 !important;
+}
+.dark-mode .te-preview{
+    background-color: #1C1F22 !important;
+}
+.dark-mode .tui-editor-contents p{
+    color: #dee2e6 !important;
+}
+.dark-mode .tui-editor-defaultUI{
+    border: 1px solid #343a40 !important;
+}
+.dark-mode .tui-editor-defaultUI .te-mode-switch-section {
+    border-top: 1px solid #343a40 !important;
+}
+.dark-mode .te-toolbar-section {
+    border-bottom: 1px solid #343a40 !important;
+}
+.dark-mode .tui-editor .te-md-splitter {
+    border-left: 1px solid #343a40 !important;
+}
+.dark-mode .tui-editor-defaultUI-toolbar{
+    background-color: #343a40 !important;
+}
+.dark-mode .tui-editor-defaultUI-toolbar button{
+    background-color: #000 !important;
+    color: #dee2e6 !important;
+    border: 1px solid #000 !important;
+}
+.dark-mode .tui-editor-defaultUI .te-mode-switch-section{
+    background-color: #343a40 !important;
+    border-top: 1px solid #343a40 !important;
+}
+.dark-mode .tui-editor-defaultUI .te-switch-button.active{
+    background-color: #000 !important;
+    border: solid 1px #000 !important;
+    color: #fff !important;
+}
+.dark-mode .tui-editor-defaultUI .te-switch-button{
+    background-color: #343a40 !important;
+    border-left: 1px solid #343a40 !important;
+    border-right: 1px solid #343a40 !important;
+    color: #000 !important;
+}
+.dark-mode .CodeMirror-selected{
+    background-color: #6d7fcc !important;
+}
+.dark-mode .CodeMirror-cursor {
+    border-left: 1px solid #fff !important;
+}
+.dark-mode .tui-toolbar-divider{
+    background-color: #000 !important;
+}

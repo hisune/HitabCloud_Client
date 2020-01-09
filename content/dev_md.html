@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="assets/js/theme.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/plugin/font-awesome/5.11.2/css/all.css">
+    <link href="assets/css/sidebar.css" rel="stylesheet">
+    <link href="assets/css/dev.css" rel="stylesheet">
+    <!-- Editor's Dependencies -->
+    <link rel="stylesheet" href="assets/plugin/md/libs/codemirror.css">
+    <link rel="stylesheet" href="assets/plugin/md/libs/github.min.css">
+    <!-- Editor's Extension Dependencies -->
+    <link rel="stylesheet" href="assets/plugin/md/libs/tui-chart.css">
+    <link rel="stylesheet" href="assets/plugin/md/libs/tui-color-picker.css">
+    <!-- Editor -->
+    <link rel="stylesheet" href="assets/plugin/md/dist/tui-editor.css">
+    <link rel="stylesheet" href="assets/plugin/md/dist/tui-editor-contents.css">
+    <title>New Tab</title>
+</head>
+<body>
+<div class="wrapper">
+    <!-- Sidebar  -->
+    <nav id="sidebar" class="active">
+        <ul class="navbar-nav mr-auto normal-search">
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_func.html">函数</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_json.html">JSON</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_request.html">请求</a>
+            </li>
+            <li class="nav-item context-normal">
+                <a class="nav-link" href="dev_calendar.html">日历</a>
+            </li>
+            <li class="nav-item context-normal active">
+                <a class="nav-link" href="dev_md.html">MD</a>
+            </li>
+        </ul>
+        <div id="dismiss" class="full-search sidebar-search">
+            <i class="fas fa-arrow-left"></i>
+        </div>
+        <ul class="list-unstyled">
+            <li class="normal-search sidebar-search"><a href="#"><i class="fas fa-search"></i></a></li>
+            <li class="full-search">
+                <form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <div class="input-group-append">
+                            <button type="button" class="fas fa-search"></button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item context-normal normal-search">
+                <a class="nav-link" href="index.html"><i class="fas fa-home"></i></a>
+            </li>
+        </ul>
+        <ul class="list-unstyled full-search" id="content-list"></ul>
+    </nav>
+
+    <!-- Page Content  -->
+    <div id="content">
+    </div>
+</div>
+<div id="float-icon">
+    <a href="#" class="upsert-icon upsert-icon-add"><i class="fas fa-plus"></i></a>
+    <a href="#" class="upsert-icon upsert-icon-edit"><i class="fas fa-edit"></i></a>
+    <a href="#" class="delete-icon"><i class="fas fa-trash"></i></a>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="assets/plugin/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/plugin/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="assets/plugin/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="assets/plugin/clipboard.js/2.0.4/clipboard.min.js"></script>
+<script src="assets/plugin/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script src="assets/plugin/md/dist/tui-editor-Editor-full.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/dev_md.js"></script>
+</body>
+</html>

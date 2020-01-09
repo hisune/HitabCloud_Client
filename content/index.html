@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="assets/js/theme.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/plugin/font-awesome/5.11.2/css/all.css">
+    <link href="assets/plugin/jquery-contextmenu/2.8.1/jquery.contextMenu.min.css" rel="stylesheet">
+    <link href="assets/css/index.css" rel="stylesheet">
+    <link href="assets/plugin/bootstrap-colorpicker/3.2.0/bootstrap-colorpicker.css" rel="stylesheet">
+    <title>New Tab</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" id="index-group">
+            <li class="nav-item context-normal active" data-type="group">
+                <a class="nav-link" href="#" id="index-group-add"><i class="fas fa-plus"></i></a>
+            </li>
+        </ul>
+        <div class="my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" id="weather-text">
+                        <span id="weather-text-top">
+                            <font id="weather-text-week"></font>
+                            <font id="weather-text-detail"></font>
+                            <i id="weather-special"></i>
+                        </span>
+                        <small id="weather-text-bottom"></small>
+                    </a>
+                    <div class="dropdown-menu" id="dropdown-weather">
+                        <iframe width="640" height="600" frameborder="0" id="weather-iframe" scrolling="no"></iframe>
+                    </div>
+                </li>
+                <li class="nav-item" id="index-terminal">
+                    <a class="nav-link" href="dev_func.html"><i class="fas fa-terminal"></i></a>
+                </li>
+                <li class="nav-item" id="index-cog">
+                    <a class="nav-link" href="#"><i class="fas fa-cog"></i></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row" id="index-icon">
+        <div class='col-xs-4 col-md-1-5'>
+            <div class='info-box context-normal' data-type='url'>
+                <a id='index-url-add'><i class='fas fa-plus'></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="assets/plugin/jquery/3.4.1/jquery.min.js"></script>
+<script src="assets/plugin/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="assets/plugin/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="assets/plugin/bootbox.js/5.4.0/bootbox.min.js"></script>
+<script src="assets/plugin/jquery-contextmenu/2.8.1/jquery.contextMenu.min.js"></script>
+<script src="assets/plugin/jquery-contextmenu/2.8.1/jquery.ui.position.min.js"></script>
+<script src="assets/plugin/bootstrap-colorpicker/3.2.0/bootstrap-colorpicker.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/index.js"></script>
+</body>
+</html>
