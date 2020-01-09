@@ -148,6 +148,9 @@ body{
 .dark-mode .fc-unthemed .fc-list-item:hover td{
     background-color: #000 !important;
 }
+.dark-mode .fc-list-empty{
+    background-color: #191d21 !important;
+}
 /*dark mode - md*/
 .dark-mode .CodeMirror-scroll, .dark-mode .te-ww-container{
     color: #dee2e6 !important;

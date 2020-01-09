@@ -39,6 +39,7 @@ $(document).ready(function(){
                 calendar.unselect()
             });
         },
+        eventLimit: true, // allow "more" link when too many events
         eventClick: function(calEvent, jsEvent, view){
             let eventDialog = bootbox.dialog({
                 title: 'Modify Event',
