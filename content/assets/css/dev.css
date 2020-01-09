@@ -38,6 +38,12 @@ body{
 }
 .list-unstyled{
     margin-bottom: 0;
+}/*request*/
+#request-result pre{
+    font-size: 12px;
+}
+#request-result button{
+    float: right;
 }
 /*json*/
 .upsert-icon-edit, .delete-icon{

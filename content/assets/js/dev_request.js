@@ -1,7 +1,7 @@
 $(document).ready(function(){
     HitabUtil.initDev(2).autoSave(function(){
         HitabUtil.setDev({content: JSON.stringify(HitabUtil.serializeObject($('#submit-request')))});
-    }).enableCopy();
+    });
     let jsonOrText = function(input) {
         var string = input.trim(), json = {};
         try{
@@ -28,8 +28,7 @@ $(document).ready(function(){
             headerVal = jsonOrText(formData.request_headers),
             cookieVal = jsonOrText(formData.request_cookies),
             bodyVal = jsonOrText(formData.request_body),
-            contentType = 'application/x-www-form-urlencoded; charset=utf-8',
-            output = $('#req-output');
+            contentType = 'application/x-www-form-urlencoded; charset=utf-8';
         HitabUtil.dev.content = JSON.stringify(formData);
         localStorage.setItem('dev-request', JSON.stringify(HitabUtil.dev));
         if(formData.request_type == 'raw'){
@@ -57,13 +56,20 @@ $(document).ready(function(){
                     for(var i in headerVal){
                         request.setRequestHeader(i, headerVal[i]);
                     }
-                    output.html('<div class="alert alert-info" role="alert">processing...</div>');
+                    $('#request-result').show().html('<div class="alert alert-info" role="alert">processing...</div>');
                     start = new Date().getTime();
                 },
                 contentType: contentType,
                 error: function(xhr, status, error){
                     let data = $('<div/>').text(xhr.responseText).html();
-                    $('#request-result').show().html('<font color="#8b0000">Response <b>'+xhr.statusText+'</b> with code <b>'+xhr.status+'</b> in <b>'+((new Date().getTime())-start)+'ms</b></font><pre>'+xhr.getAllResponseHeaders()+'</pre><code style="white-space: pre-wrap;">'+data+'</code>');
+                    $('#request-result').show().html('<font color="#8b0000">Response <b>'
+                        +xhr.statusText
+                        +'</b> with code <b>'+xhr.status+'</b> in <b>'
+                        +((new Date().getTime())-start)+'ms</b></font>' +
+                        '<pre>'
+                        +xhr.getAllResponseHeaders()
+                        +'</pre>' +
+                        '<code style="white-space: pre-wrap;">'+data+'</code>');
                 },
                 success: function(data, status, xhr){
                     try{
@@ -75,7 +81,27 @@ $(document).ready(function(){
                     }catch (e) {
                         data = $('<div/>').text(data).html();
                     }
-                    $('#request-result').show().html('<font color="#006400">Response <b>'+xhr.statusText+'</b> with code <b>'+xhr.status+'</b> in <b>'+((new Date().getTime())-start)+'ms</b></font><pre>'+xhr.getAllResponseHeaders()+'</pre><code style="white-space: pre-wrap;">'+data+'</code>');
+                    $('#request-result').show().html('<font color="#006400">Response <b>'+xhr.statusText+'</b> with code <b>'+xhr.status+'</b> in <b>'+((new Date().getTime())-start)+'ms</b></font>' +
+                        ' <button type="button" class="btn btn-link btn-sm btn-copy" data-clipboard-target="#response-headers">Copy Headers</button> ' +
+                        ' <button type="button" class="btn btn-link btn-sm btn-copy" data-clipboard-target="#response-body">Copy Body</button> ' +
+                        ' <button type="button" class="btn btn-link btn-sm" id="open-body-in-json">Open Body in JSON</button> ' +
+                        '<pre id="response-headers">'+xhr.getAllResponseHeaders()+'</pre>' +
+                        '<code id="response-body" style="white-space: pre-wrap;">'+data+'</code>');
+                   new ClipboardJS('.btn-copy');
+                   $('#open-body-in-json').click(function(){
+                       try{
+                           JSON.parse(data);
+                           localStorage.setItem('dev-json', JSON.stringify({
+                               id: 0,
+                               type: 1,
+                               name: "",
+                               content: data,
+                           }));
+                           window.open('dev_json.html', '_blank');
+                       }catch (e) {
+                           HitabUtil.showError('Invalid JSON Format!');
+                       }
+                   });
                 }
             });
         });
