@@ -210,6 +210,7 @@ window.HitabUtil = function(){
                                 'id': data.id || '',
                                 'type': data.type,
                                 'name': result,
+                                'status': 0,
                                 'content': data.content
                             };
                             HitabUtil.setRemoteOrLocal('/content/upsert', setData, function(result){

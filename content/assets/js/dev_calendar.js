@@ -16,34 +16,64 @@ $(document).ready(function(){
         selectable: true,
         selectMirror: true,
         select: function(arg) {
-            bootbox.prompt('Add e Event', function(title){
-                if(title){
-                    HitabUtil.setRemoteOrLocal('/content/upsert', {
-                        'id': '',
-                        'type': 3,
-                        'name': title,
-                        'content': JSON.stringify({
-                            start: arg.start,
-                            end: arg.end,
-                            allDay: arg.allDay
-                        })
-                    }, function(result){
-                        calendar.addEvent({
-                            title: title,
-                            start: arg.start,
-                            end: arg.end,
-                            allDay: arg.allDay
-                        })
-                    }, false);
+            bootbox.prompt({
+                title: 'Add e Event',
+                value: '[✗] ',
+                callback: function(title){
+                    if(title){
+                        HitabUtil.setRemoteOrLocal('/content/upsert', {
+                            'id': '',
+                            'type': 3,
+                            'name': title,
+                            'status': 0,
+                            'content': JSON.stringify({
+                                start: arg.start,
+                                end: arg.end,
+                                allDay: arg.allDay
+                            })
+                        }, function(result){
+                            calendar.addEvent({
+                                title: title,
+                                start: arg.start,
+                                end: arg.end,
+                                allDay: arg.allDay,
+                                extendedProps: {'status': 0}
+                            })
+                        }, false);
+                    }
+                    calendar.unselect()
                 }
-                calendar.unselect()
             });
         },
         eventLimit: true, // allow "more" link when too many events
         eventClick: function(calEvent, jsEvent, view){
             let eventDialog = bootbox.dialog({
                 title: 'Modify Event',
-                message: '<input class="form-control" id="event-name" placeholder="Your Event Name" value="'+calEvent.event.title+'">',
+                message: '<div class="form-group">' +
+                    '<input class="form-control" id="event-name" placeholder="Your Event Name" value="'+calEvent.event.title+'">' +
+                    '</div>' +
+                    '<div class="form-group">' +
+                    "        <label class='custom-control custom-switch'>" +
+                    "            <input type='checkbox' class='custom-control-input' id='event-status'>" +
+                    "            <div class='custom-control-label'>Done!</div>" +
+                    "        </label>" +
+                    '</div>',
+                onShow: function(e){
+                    let domStatus = $('#event-status'), domName = $('#event-name');
+                    if(calEvent.event.extendedProps.status){
+                        domStatus.prop('checked', true);
+                    }
+                    domStatus.change(function(){
+                        let name = domName.val();
+                        name = name.replace('[✗]','').replace('[✓]','').trim();
+                        if($(this).is(':checked')){
+                            name = '[✓] ' + name;
+                        }else{
+                            name = '[✗] ' + name;
+                        }
+                        domName.val(name);
+                    });
+                },
                 buttons: {
                     cancel: {
                         label: "Cancel",
@@ -67,15 +97,17 @@ $(document).ready(function(){
                         label: "Save",
                         className: 'btn-success',
                         callback: function(){
-                            let name = $('#event-name').val();
+                            let name = $('#event-name').val(), done = $('#event-status').is(':checked');
                             if(name){
                                 let content = {
+                                    extendedProps: {status: calEvent.event.extendedProps.status},
                                     start: calEvent.event.start,
                                     end: calEvent.event.end,
                                     allDay: calEvent.event.allDay
                                 }, setData = {
                                     'id': calEvent.event.id,
                                     'type': 3,
+                                    'status': done?1:0,
                                     'name': name,
                                     'content':JSON.stringify(content)
                                 };
@@ -119,8 +151,10 @@ $(document).ready(function(){
     HitabUtil.getLocalOrRemote('/content/get/3/', null, function(data){
         for(let i in data){
             let content = JSON.parse(data[i].content);
+            content.extendedProps = {};
             content.id = data[i].id;
             content.title = data[i].name;
+            content.extendedProps.status = data[i].status;
             calendar.addEvent(content)
         }
     });
