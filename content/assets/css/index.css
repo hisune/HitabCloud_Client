@@ -1,4 +1,12 @@
 /* index icon container start */
+/*error*/
+#error-alert{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
 #index-icon{
     margin-top: 30px;
 }
@@ -103,35 +111,6 @@
     display: none;
 }
 /* index icon container start */
-/* 5 column */
-.col-xs-1-5, .col-sm-1-5, .col-md-1-5, .col-lg-1-5{
-    position: relative;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-}
-.col-xs-1-5 {
-    width: 20%;
-    float: left;
-}
-@media (min-width: 768px) {
-    .col-sm-1-5 {
-        width: 20%;
-        float: left;
-    }
-}
-@media (min-width: 992px) {
-    .col-md-1-5 {
-        width: 20%;
-        float: left;
-    }
-}
-@media (min-width: 1200px) {
-    .col-lg-1-5 {
-        width: 20%;
-        float: left;
-    }
-}
 /*dark theme*/
 html.theme-init body{
     opacity: 0;

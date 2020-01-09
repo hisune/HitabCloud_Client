@@ -4,7 +4,7 @@ window.HitabIndex = function(){
             item_group: "<li data-type='group' class='nav-item index-group-item context-menu {active}' data-id='{id}' data-name='{name}' data-sort='{sort}'>" +
                 "<a class='nav-link' href='#'>{name}</a>" +
                 "</li>",
-            item_url: "<div class='col-xs-4 col-md-{size}'>" +
+            item_url: "<div class='col text-truncate'>" +
                 "    <div data-type='url' class='info-box context-menu' data-id='{id}' data-sort='{sort}' data-name='{name}' data-link='{link}' data-group_id='{group_id}' data-color='{color}'>" +
                 "        <div class='info-box-content' style='background-color: {color}'>" +
                 "            <a href='{link}'>" +
@@ -70,16 +70,11 @@ window.HitabIndex = function(){
                 "        </label>" +
                 "    " +
                 "</div>",
-            empty_icon: "<div class='col-xs-4 col-md-1-5'>" +
+            empty_icon: "<div class='row'><div class='col-xs-4 col-md-1-5'>" +
                 "    <div class='info-box context-normal' data-type='url'>" +
                 "        <a id='index-url-add'><i class='fas fa-plus'></i></a>" +
                 "    </div>" +
-                "</div>"
-        },
-        column_size: {
-            4: '3',
-            5: '1-5',
-            6: '2',
+                "</div></div>"
         },
         currentGroup: 0,
         colors: ['#816ec2','#556aa0','#556aa0','#7fb3c9','#b29583','#707ba8','#accf43','#7fb3c9','#7ac95f', '#78b8f9','#660066','#999966','#FFCC00','#330066','#663333','#990000'],
@@ -324,15 +319,21 @@ window.HitabIndex = function(){
         initUrl: function(){
             let that = this;
             HitabUtil.getLocalOrRemote('/url/get/' + that.currentGroup, null, function(data){
-                let icon = $('#index-icon'), size = that.column_size[HitabUtil.user.column_size] || 3;
+                let icon = $('#index-icon'), left = HitabUtil.user.column_size;
                 if(data !== null) icon.empty();
                 if(data && data.length > 0){
+                    let html = '<div class="row">';
                     localStorage.setItem('/url/get/' + that.currentGroup, JSON.stringify(data));
                     for(let i in data){
                         if(data.hasOwnProperty(i)) {
+                            if((parseInt(i)) % HitabUtil.user.column_size === 0){
+                                html += '</div><div class="row">';
+                                left = HitabUtil.user.column_size;
+                            }
+                            left --;
                             let link_display = data[i].link.replace(/^(https?|ftp):\/\//, '');
-                            icon.append(HitabUtil.format(that.tpl.item_url, {
-                                size: size,
+                            html += HitabUtil.format(that.tpl.item_url, {
+                                size: HitabUtil.user.column_size,
                                 id: data[i].id,
                                 name: data[i].name,
                                 sort: data[i].sort,
@@ -340,9 +341,16 @@ window.HitabIndex = function(){
                                 group_id: data[i].group_id,
                                 link: data[i].link,
                                 link_display: link_display
-                            }));
+                            });
                         }
                     }
+                    if(left > 0){ // 补充剩余的col
+                        for(let i=0;i<left;i++){
+                            html += '<div class="col"></div>';
+                        }
+                    }
+                    html += '</div>';
+                    icon.html(html);
                 }else{
                     icon.html(that.tpl.empty_icon);
                 }

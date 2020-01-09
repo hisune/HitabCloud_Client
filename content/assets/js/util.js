@@ -18,6 +18,13 @@ window.HitabUtil = function(){
             name: "",
             content: '{}',
         },
+        showError: function(msg){
+            let dom = $('#error-alert');
+            dom.text(msg).fadeIn();
+            setTimeout(function () {
+                dom.fadeOut();
+            }, 5000);
+        },
         format: function(string, arguments){
             for( let arg in arguments ) {
                 string = string.replace(new RegExp("{" + arg + "}", 'g'), arguments[arg]);
@@ -48,6 +55,7 @@ window.HitabUtil = function(){
             return Math.floor(Math.random() * (max - min + 1) + min);
         },
         request : function(uri, data, callback){
+            let that = this;
             $.ajax({
                 type: "POST",
                 url: 'https://hitab.hisune.com' + uri,
@@ -59,7 +67,7 @@ window.HitabUtil = function(){
                     callback(result, null);
                 },
                 error: function(){
-                    callback(null, 'error');
+                    that.showError('网络错误，请检查您的网络');
                 }
             });
         },

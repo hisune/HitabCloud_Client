@@ -1,6 +1,14 @@
 body{
     opacity: 0;
 }
+/*error*/
+#error-alert{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: none;
+}
+
 .container-fluid{
     padding: 30px 60px;
 }
