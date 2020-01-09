@@ -18,6 +18,19 @@ window.HitabUtil = function(){
             name: "",
             content: '{}',
         },
+        hash: [
+            '/group/get',
+            '/url/get',
+            '/user/get',
+        ],
+        matchHash: function(uri){
+            for(let i in this.hash){
+                if(this.hash.hasOwnProperty(i) && uri.indexOf(this.hash[i]) === 0){
+                    return true;
+                }
+            }
+            return false;
+        },
         showError: function(msg){
             let dom = $('#error-alert');
             dom.text(msg).fadeIn();
@@ -84,21 +97,29 @@ window.HitabUtil = function(){
             return result;
         },
         getLocalOrRemote: function(uri, data, callback){
-            if(uri.indexOf('/group/get') === 0 || uri.indexOf('/url/get') === 0 || uri.indexOf('/user/get') === 0){
+            let that = this;
+            if(that.matchHash(uri)){
                 let storage = localStorage.getItem(uri), result = storage ? JSON.parse(storage) : null;
                 callback && callback(result);
             }
-            if(this.user.id && this.user.secret){
-                this.request(uri, data, function(result, err){
+            if(that.user.id && that.user.secret){
+                that.request(uri, data, function(result, err){
                     if(err) return;
                     if(result && result.message){
                         bootbox.alert({
                             message: result.message,
-                            onHide: function(){
-                            }
+                            onHide: function(){}
                         });
                     }else{
-                        callback && callback(result.data);
+                        if(that.matchHash(uri) && result.hash){
+                            let hash = localStorage.getItem(uri + '.hash');
+                            if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
+                                localStorage.setItem(uri + '.hash', result.hash);
+                                callback && callback(result.data);
+                            }
+                        }else{
+                            callback && callback(result.data);
+                        }
                     }
                 });
             }
