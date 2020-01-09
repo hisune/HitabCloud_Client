@@ -148,14 +148,25 @@ $(document).ready(function(){
 
     calendar.render();
 
-    HitabUtil.getLocalOrRemote('/content/get/3/', null, function(data){
-        for(let i in data){
-            let content = JSON.parse(data[i].content);
-            content.extendedProps = {};
-            content.id = data[i].id;
-            content.title = data[i].name;
-            content.extendedProps.status = data[i].status;
-            calendar.addEvent(content)
-        }
-    });
+    setTimeout(function(){
+        HitabUtil.getLocalOrRemote('/content/get/3/', null, function(data){
+            console.log(data);
+            for(let i in data){
+                if(data.hasOwnProperty(i)){
+                    let exist = calendar.getEventById(data[i].id);
+                    console.log(exist);
+                    if(exist){
+                        exist.remove();
+                    }
+                    let content = JSON.parse(data[i].content);
+                    content.extendedProps = {};
+                    content.id = data[i].id;
+                    content.title = data[i].name;
+                    content.extendedProps.status = data[i].status;
+                    calendar.addEvent(content)
+                }
+            }
+        });
+    },10);
+
 });

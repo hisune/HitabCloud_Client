@@ -22,6 +22,7 @@ window.HitabUtil = function(){
             '/group/get',
             '/url/get',
             '/user/get',
+            '/content/get/3/',
         ],
         matchHash: function(uri){
             for(let i in this.hash){
@@ -115,6 +116,7 @@ window.HitabUtil = function(){
                             let hash = localStorage.getItem(uri + '.hash');
                             if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
                                 localStorage.setItem(uri + '.hash', result.hash);
+                                localStorage.setItem(uri, JSON.stringify(result.data));
                                 callback && callback(result.data);
                             }
                         }else{

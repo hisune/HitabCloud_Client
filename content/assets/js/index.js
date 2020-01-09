@@ -291,7 +291,6 @@ window.HitabIndex = function(){
                 if(data !== null) group.empty();
                 if(data && data.length > 0){
                     that.currentGroup = localStorage.getItem('active.group');
-                    localStorage.setItem('/group/get', JSON.stringify(data));
                     for(let i in data){
                         if(data.hasOwnProperty(i)){
                             let active = '';
@@ -323,7 +322,6 @@ window.HitabIndex = function(){
                 if(data !== null) icon.empty();
                 if(data && data.length > 0){
                     let html = '<div class="row">';
-                    localStorage.setItem('/url/get/' + that.currentGroup, JSON.stringify(data));
                     for(let i in data){
                         if(data.hasOwnProperty(i)) {
                             if((parseInt(i)) % HitabUtil.user.column_size === 0){
