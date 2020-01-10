@@ -59,8 +59,7 @@ window.HitabUtil = function(){
             let that = this;
             $.ajax({
                 type: "POST",
-                // url: 'https://hitab.hisune.com' + uri,
-                url: 'http://hitab.com' + uri,
+                url: 'https://hitab.hisune.com' + uri,
                 data: data,
                 beforeSend: function(request) {
                     request.setRequestHeader("Authorization", util.user.id + ':' + util.user.secret);
