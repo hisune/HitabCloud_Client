@@ -3,7 +3,7 @@ function initTheme() {
         html = document.getElementsByTagName("html")[0],
         dark_mode = 0;
     try{
-        let user = JSON.parse(localStorage.getItem('/user/get'));
+        let user = JSON.parse(localStorage.getItem('user'));
         dark_mode = user.dark_mode || 0;
     }catch (e) {}
     link.rel='stylesheet';
