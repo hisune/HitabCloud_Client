@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    HitabUtil.initDev(1);
     function initJson(json) {
         let left = document.getElementById('json-left'), right = document.getElementById('json-right');
         $(left).empty();
@@ -22,9 +21,12 @@ $(document).ready(function(){
         editor1.set(JSON.parse(json.content));
         editor2.set(JSON.parse(json.content));
     }
-    initJson(HitabUtil.dev);
 
-    HitabUtil.sidebar(function(data){
-        initJson(data);
-    });
+    HitabUtil.init(function(){
+        initJson(HitabUtil.dev);
+
+        HitabUtil.sidebar(function(data){
+            initJson(data);
+        });
+    },1);
 });

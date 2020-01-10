@@ -200,12 +200,14 @@ window.HitabIndex = function(){
                             label: "Save",
                             className: 'btn-primary',
                             callback: function(){
-                                HitabUtil.setRemoteOrLocal('/user/set', {
+                                HitabUtil.user = {
                                     id: $('#index-cos-id').val(),
                                     secret: $('#index-cos-secret').val(),
                                     column_size: $('#index-cos-column_size').val(),
                                     dark_mode: $('#index-cos-dark_mode:checked').length,
-                                }, null, true);
+                                };
+                                localStorage.setItem('user', JSON.stringify(HitabUtil.user));
+                                HitabUtil.setRemoteOrLocal('/user/set', HitabUtil.user, null, true);
                             }
                         }
                     }
@@ -250,11 +252,9 @@ window.HitabIndex = function(){
                     "delete": {name: "Delete", icon: "delete"},
                 }
             });
-            that.initGroup();
             // weather
             let weather = localStorage.getItem('weather'),
-                frameDom = $('#weather-iframe'),
-                weatherTopDom = $('#weather-text-top');
+                frameDom = $('#weather-iframe');
             let week = {0:'日',1:'一',2:'二',3:'三',4:'四',5:'五',6:'六'};
             $('#weather-text-week').text('周' + week[new Date().getDay()]);
             let lunar = HitabUtil.getLunar(), date = new Date();
@@ -282,6 +282,10 @@ window.HitabIndex = function(){
                         $('#weather-iframe').height(event.data.value.height);
                         break;
                 }
+            });
+            // init
+            HitabUtil.init(function(){
+                that.initGroup();
             });
         },
         initGroup: function(){

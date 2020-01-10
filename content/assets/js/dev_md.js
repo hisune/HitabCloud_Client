@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    HitabUtil.initDev(4);
-    let editor = new tui.Editor({
+    HitabUtil.init(function(){
+        let editor = new tui.Editor({
             el: document.querySelector('#content'),
             initialEditType: 'markdown',
             previewStyle: 'vertical',
@@ -20,10 +20,11 @@ $(document).ready(function(){
                 'table'
             ]
         });
-    editor.eventManager.listen('convertorAfterMarkdownToHtmlConverted', function(){
-        HitabUtil.setDev({content: editor.getMarkdown()});
-    });
-    HitabUtil.sidebar(function(data){
-        editor.setValue(data.content !== '{}' ? data.content : '')
-    });
+        editor.eventManager.listen('convertorAfterMarkdownToHtmlConverted', function(){
+            HitabUtil.setDev({content: editor.getMarkdown()});
+        });
+        HitabUtil.sidebar(function(data){
+            editor.setValue(data.content !== '{}' ? data.content : '')
+        });
+    },4);
 });

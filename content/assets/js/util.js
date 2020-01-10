@@ -1,5 +1,5 @@
 window.HitabUtil = function(){
-    let user = JSON.parse(localStorage.getItem('/user/set')) || {}, util = {
+    let user = JSON.parse(localStorage.getItem('user')) || {}, util = {
         user: {
             id: user.id || 0,
             secret: user.secret || '',
@@ -18,20 +18,7 @@ window.HitabUtil = function(){
             name: "",
             content: '{}',
         },
-        hash: [
-            '/group/get',
-            '/url/get',
-            '/user/get',
-            '/content/get/3/',
-        ],
-        matchHash: function(uri){
-            for(let i in this.hash){
-                if(this.hash.hasOwnProperty(i) && uri.indexOf(this.hash[i]) === 0){
-                    return true;
-                }
-            }
-            return false;
-        },
+        db: null,
         showError: function(msg){
             let dom = $('#error-alert');
             dom.text(msg).fadeIn();
@@ -72,7 +59,8 @@ window.HitabUtil = function(){
             let that = this;
             $.ajax({
                 type: "POST",
-                url: 'https://hitab.hisune.com' + uri,
+                // url: 'https://hitab.hisune.com' + uri,
+                url: 'http://hitab.com' + uri,
                 data: data,
                 beforeSend: function(request) {
                     request.setRequestHeader("Authorization", util.user.id + ':' + util.user.secret);
@@ -84,6 +72,36 @@ window.HitabUtil = function(){
                     that.showError('网络错误，请检查您的网络');
                 }
             });
+        },
+        setToDB: function(key, value, callback){
+            try{
+                let transaction = this.db.result.transaction(['caches'], 'readwrite'),
+                    objectStore = transaction.objectStore('caches');
+                let request = objectStore.put({uri: key, content: value});
+                request.onsuccess = function(event){
+                    callback && callback();
+                };
+                request.onerror = function(event) {
+                    bootbox.alert('Error to Set in DB with key ' + key);
+                };
+            }catch (e) {
+                this.showError(e.message);
+            }
+        },
+        getInDB: function(key, callback){
+            try{
+                let transaction = this.db.result.transaction(['caches'], 'readwrite'),
+                    objectStore = transaction.objectStore('caches'),
+                    request = objectStore.get(key);
+                request.onerror = function(event) {
+                    bootbox.alert('Error to Get in DB with key ' + key);
+                };
+                request.onsuccess = function(event) {
+                    callback && request.result && callback(request.result.content);
+                };
+            }catch (e) {
+                this.showError(e.message);
+            }
         },
         getParameter: function(parameterName) {
             var result = null,
@@ -99,10 +117,13 @@ window.HitabUtil = function(){
         },
         getLocalOrRemote: function(uri, data, callback){
             let that = this;
-            if(that.matchHash(uri)){
-                let storage = localStorage.getItem(uri), result = storage ? JSON.parse(storage) : null;
-                callback && callback(result);
-            }
+            that.getInDB(uri, function(result){
+                if(result){
+                    result = JSON.parse(result);
+                    callback && callback(result);
+                }
+            });
+            console.log(that.user);
             if(that.user.id && that.user.secret){
                 that.request(uri, data, function(result, err){
                     if(err) return;
@@ -112,12 +133,13 @@ window.HitabUtil = function(){
                             onHide: function(){}
                         });
                     }else{
-                        if(that.matchHash(uri) && result.hash){
+                        if(result.hash){
                             let hash = localStorage.getItem(uri + '.hash');
                             if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
                                 localStorage.setItem(uri + '.hash', result.hash);
-                                localStorage.setItem(uri, JSON.stringify(result.data));
-                                callback && callback(result.data);
+                                that.setToDB(uri, JSON.stringify(result.data), function(){
+                                    callback && callback(result.data);
+                                });
                             }
                         }else{
                             callback && callback(result.data);
@@ -128,10 +150,6 @@ window.HitabUtil = function(){
         },
         setRemoteOrLocal: function(uri, data, callback, reload) {
             reload = reload || false;
-            if(uri === '/user/set'){
-                this.user = data;
-                localStorage.setItem('/user/get', JSON.stringify(data));
-            }
             if(this.user.id && this.user.secret){
                 this.request(uri, data, function(result, err){
                     if(result.message){
@@ -213,8 +231,10 @@ window.HitabUtil = function(){
                 let data = JSON.parse(localStorage.getItem(that.devType[that.dev.type])) || {};
                 bootbox.confirm('Are you sure to delete 【' + data.name + '】', function(result){
                     if(result){
-                        HitabUtil.setRemoteOrLocal('/content/del/' + data.id);
-                        that.setDev({id: 0, name: '', content: '{}'});
+                        HitabUtil.setRemoteOrLocal('/content/del/' + data.id, null, function(){
+                            that.setDev({id: 0, name: '', content: '{}'});
+                            initContent();
+                        });
                     }
                 });
             });
@@ -271,21 +291,35 @@ window.HitabUtil = function(){
             }
             this.setDevIcon();
             return this;
+        },
+        init: function(callback, devType){
+            let that = this;
+            // database
+            that.db = window.indexedDB.open('hitab',2);
+            that.db.onupgradeneeded = function(event) {
+                that.db.result.createObjectStore("caches", { keyPath: "uri" });
+            };
+            that.db.onsuccess = function(event){
+                if(!util.user.id){
+                    util.getLocalOrRemote('/user/get', null, function(user){
+                        if(user){
+                            util.user = user;
+                        }
+                    });
+                }
+                devType && that.initDev(devType);
+                callback && callback();
+            };
+            that.db.onerror = function(event){
+                bootbox.alert('初始化indexedDb错误！');
+            };
+            // auto submit
+            $('.auto-submit').keypress(function(event){
+                if ( event.which == 13 ) {
+                    $(this).parents('form').find('.btn-auto-submit').click();
+                }
+            });
         }
-
     };
-    if(!util.user.id){
-        util.getLocalOrRemote('/user/get', null, function(user){
-            if(user){
-                util.user = user;
-            }
-        });
-    }
-    // auto submit
-    $('.auto-submit').keypress(function(event){
-        if ( event.which == 13 ) {
-            $(this).parents('form').find('.btn-auto-submit').click();
-        }
-    });
     return util;
 }(window, document);
