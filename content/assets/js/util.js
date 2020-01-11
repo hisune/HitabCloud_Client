@@ -103,10 +103,11 @@ window.HitabUtil = function(){
                 }
             });
         },
-        setToDB: function(key, value, callback){
+        setToDB: function(key, value, callback, table){
             try{
-                let transaction = this.db.result.transaction(['caches'], 'readwrite'),
-                    objectStore = transaction.objectStore('caches');
+                table = table || 'caches';
+                let transaction = this.db.result.transaction([table], 'readwrite'),
+                    objectStore = transaction.objectStore(table);
                 let request = objectStore.put({uri: key, content: value});
                 request.onsuccess = function(event){
                     callback && callback();
@@ -118,16 +119,21 @@ window.HitabUtil = function(){
                 this.showError(e.message);
             }
         },
-        getInDB: function(key, callback){
+        getInDB: function(key, callback, table){
             try{
-                let transaction = this.db.result.transaction(['caches'], 'readwrite'),
-                    objectStore = transaction.objectStore('caches'),
+                table = table || 'caches';
+                console.log(table);
+                let transaction = this.db.result.transaction([table], 'readwrite'),
+                    objectStore = transaction.objectStore(table),
                     request = objectStore.get(key);
                 request.onerror = function(event) {
                     bootbox.alert('Error to Get in DB with key ' + key);
                 };
                 request.onsuccess = function(event) {
-                    callback && request.result && callback(request.result.content);
+                    if(callback){
+                        if(request.result) callback(request.result.content);
+                        else callback(null);
+                    }
                 };
             }catch (e) {
                 this.showError(e.message);
@@ -137,7 +143,6 @@ window.HitabUtil = function(){
             let that = this;
             that.getInDB(uri, function(result){
                 if(result){
-                    result = JSON.parse(result);
                     callback && callback(result);
                 }
             });
@@ -151,13 +156,16 @@ window.HitabUtil = function(){
                         });
                     }else{
                         if(result.hash){
-                            let hash = localStorage.getItem(uri + '.hash');
-                            if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
-                                localStorage.setItem(uri + '.hash', result.hash);
-                                that.setToDB(uri, JSON.stringify(result.data), function(){
-                                    callback && callback(result.data);
-                                });
-                            }
+                            console.log(result);
+                            that.getInDB(uri, function(hash){
+                                console.log(hash);
+                                if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
+                                    that.setToDB(uri, result.hash, null, 'hashes');
+                                    that.setToDB(uri, result.data, function(){
+                                        callback && callback(result.data);
+                                    });
+                                }
+                            }, 'hashes');
                         }else{
                             callback && callback(result.data);
                         }
@@ -366,6 +374,7 @@ window.HitabUtil = function(){
             that.db = window.indexedDB.open('hitab',2);
             that.db.onupgradeneeded = function(event) {
                 that.db.result.createObjectStore("caches", { keyPath: "uri" });
+                that.db.result.createObjectStore("hashes", { keyPath: "uri" });
             };
             that.db.onsuccess = function(event){
                 if(!util.user.id){
