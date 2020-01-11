@@ -122,7 +122,6 @@ window.HitabUtil = function(){
         getInDB: function(key, callback, table){
             try{
                 table = table || 'caches';
-                console.log(table);
                 let transaction = this.db.result.transaction([table], 'readwrite'),
                     objectStore = transaction.objectStore(table),
                     request = objectStore.get(key);
