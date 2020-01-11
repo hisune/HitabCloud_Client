@@ -111,18 +111,6 @@ window.HitabUtil = function(){
                 this.showError(e.message);
             }
         },
-        getParameter: function(parameterName) {
-            var result = null,
-                tmp = [];
-            location.search
-                .substr(1)
-                .split("&")
-                .forEach(function (item) {
-                    tmp = item.split("=");
-                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-                });
-            return result;
-        },
         getLocalOrRemote: function(uri, data, callback){
             let that = this;
             that.getInDB(uri, function(result){
@@ -210,21 +198,34 @@ window.HitabUtil = function(){
             }
         },
         setDev: function(data){
+            let that = this;
             if(data.hasOwnProperty('id')) this.dev.id = data.id;
             if(data.hasOwnProperty('name')) this.dev.name = data.name;
             if(data.hasOwnProperty('content')) this.dev.content = typeof data.content === 'object' ? JSON.stringify(data.content) : data.content;
             localStorage.setItem(this.devType[this.dev.type], JSON.stringify(this.dev));
+            $('#submit-search').submit(function(){
+                let array = $(this).serializeArray();
+                if(array && array[0].name === 'word'){
+                    HitabUtil.getLocalOrRemote('/content/search/'+that.dev.type+'/'+array[0].value, null, function(data){
+                        that.appendSidebarContent(data);
+                    });
+                }
+                return false;
+            });
             this.setDevIcon();
+        },
+        appendSidebarContent: function(data){
+            let list = $('#content-list'), that = this;
+            list.empty();
+            for(let i in data){
+                let active = that.dev.id == data[i].id ? 'active' : '';
+                list.append('<li class="content-list-li '+active+'" data-id="'+data[i].id+'"><a>'+data[i].name+'<span>'+data[i].created_at.split(" ")[0]+'</span></a></li>');
+            }
         },
         sidebar: function(clickListItemCall){
             let that = this, initContent = function(){
                 HitabUtil.getLocalOrRemote('/content/get/'+that.dev.type+'/', null, function(data){
-                    let list = $('#content-list');
-                    list.empty();
-                    for(let i in data){
-                        let active = that.dev.id == data[i].id ? 'active' : '';
-                        list.append('<li class="content-list-li '+active+'" data-id="'+data[i].id+'"><a>'+data[i].name+'<span>'+data[i].created_at.split(" ")[0]+'</span></a></li>');
-                    }
+                    that.appendSidebarContent(data);
                 });
             };
             // event
