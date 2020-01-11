@@ -218,3 +218,11 @@ body{
 .dark-mode .tui-toolbar-divider{
     background-color: #000 !important;
 }
+.dark-mode .tui-editor-contents h1, .dark-mode .tui-editor-contents h2, .dark-mode .tui-editor-contents h3, .dark-mode .tui-editor-contents h4,
+.dark-mode .tui-editor-contents h5, .dark-mode .tui-editor-contents ul, .dark-mode .tui-editor-contents menu, .dark-mode .tui-editor-contents ol, .dark-mode .tui-editor-contents dir{
+    color: #fff;
+}
+.dark-mode .tui-editor-contents pre{
+    color: #fff;
+    background-color: #000;
+}

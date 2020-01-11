@@ -12,13 +12,35 @@ window.HitabUtil = function(){
             3: 'dev-calender',
             4: 'dev-md'
         },
+        tags: {},
         dev: {
             id: 0,
             type: 0,
             name: "",
             content: '{}',
+            tags: []
         },
         db: null,
+        tplTag: "<div class='form-check form-check-inline custom-switch'>" +
+            "  <input name='icon-tag' {checked} type=\"checkbox\" class=\"custom-control-input\" value='{id}' id=\"icon-tag{id}\">\n" +
+            "  <label class=\"custom-control-label\" for=\"icon-tag{id}\">{name} ({count})</label>" +
+            "</div>",
+        tplIcon: function(){
+            let tpl = "<div class='form-group'>" +
+                "    <label>Name</label>" +
+                "    <input type='text' value='"+this.dev.name+"' class='form-control' id='icon-name' placeholder='Enter a Name'>" +
+                "</div>" +
+                "<div class='form-group'>" +
+                "    <label>Tags</label>" +
+                "    <div id='icon-tags'>{tags}</div>" +
+                "</div>";
+            let html = '';
+            for(let i in this.tags){
+                let checked = this.dev.tags.indexOf(this.tags[i].id) >=0 ? 'checked' : '';
+                html += this.format(this.tplTag, {id: this.tags[i].id, name: this.tags[i].name, checked: checked, count: this.tags[i].count});
+            }
+            return this.format(tpl, {tags: html});
+        },
         initTodo: function(count){
             let dom = $('#todo');
             if(!count) count = localStorage.getItem('todo') || 0;
@@ -201,17 +223,9 @@ window.HitabUtil = function(){
             let that = this;
             if(data.hasOwnProperty('id')) this.dev.id = data.id;
             if(data.hasOwnProperty('name')) this.dev.name = data.name;
+            if(data.hasOwnProperty('tags')) this.dev.tags = data.tags;
             if(data.hasOwnProperty('content')) this.dev.content = typeof data.content === 'object' ? JSON.stringify(data.content) : data.content;
             localStorage.setItem(this.devType[this.dev.type], JSON.stringify(this.dev));
-            $('#submit-search').submit(function(){
-                let array = $(this).serializeArray();
-                if(array && array[0].name === 'word'){
-                    HitabUtil.getLocalOrRemote('/content/search/'+that.dev.type+'/'+array[0].value, null, function(data){
-                        that.appendSidebarContent(data);
-                    });
-                }
-                return false;
-            });
             this.setDevIcon();
         },
         appendSidebarContent: function(data){
@@ -231,6 +245,10 @@ window.HitabUtil = function(){
             // event
             $('.sidebar-search').click(function(){
                 $('#sidebar').toggleClass('active');
+                let input = $('#submit-search input[name=word]');
+                if(input.is(':visible')){
+                    input.focus();
+                }
             });
             $('#content').click(function(){
                 $('#sidebar').addClass('active');
@@ -240,7 +258,7 @@ window.HitabUtil = function(){
                 bootbox.confirm('Are you sure to delete 【' + data.name + '】', function(result){
                     if(result){
                         HitabUtil.setRemoteOrLocal('/content/del/' + data.id, null, function(){
-                            that.setDev({id: 0, name: '', content: '{}'});
+                            that.setDev({id: 0, name: '', content: '{}', tags: []});
                             initContent();
                         });
                     }
@@ -251,28 +269,70 @@ window.HitabUtil = function(){
                 if($(this).hasClass('upsert-icon-add')){
                     data.id = null;
                 }
-                bootbox.prompt({
+                bootbox.dialog({
                     title: data.id ? 'Modify ID ' + data.id : 'Add a New Record',
-                    inputType: 'text',
-                    value: data.name,
-                    callback: function(result){
-                        if(result){
-                            let setData = {
-                                'id': data.id || '',
-                                'type': data.type,
-                                'name': result,
-                                'status': 0,
-                                'content': data.content
-                            };
-                            HitabUtil.setRemoteOrLocal('/content/upsert', setData, function(result){
+                    message: that.tplIcon(),
+                    buttons: {
+                        cancel: {
+                            label: "Cancel!"
+                        },
+                        noclose: {
+                            label: "Add a Tag",
+                            className: 'btn-warning',
+                            callback: function(){
+                                bootbox.prompt('Add a New Tag', function(result){
+                                    if(result){
+                                        HitabUtil.setRemoteOrLocal('/tag/upsert', {
+                                            name: result,
+                                            type: that.dev.type
+                                        }, function(resultAddTag){
+                                            if(resultAddTag.data){
+                                                HitabUtil.tags.push({id: resultAddTag.data.id, type: that.dev.type, name: result, count: 0});
+                                                $('#search-tag').append('<option value="'+resultAddTag.data.id+'">'+result+'(0)'+'</option>');
+                                                $('#icon-tags').append(that.format(that.tplTag, {
+                                                    id: resultAddTag.data.id,
+                                                    name: result,
+                                                    checked: '',
+                                                    count: 0
+                                                }));
+                                            }
+                                        });
+                                    }
+                                });
+                                return false;
+                            }
+                        },
+                        ok: {
+                            label: "Save",
+                            className: 'btn-info',
+                            callback: function(){
+                                let result = $('#icon-name').val(),
+                                    tags = $('#icon-tags input[name=icon-tag]:checked').map(function() {
+                                        return parseInt(this.value);
+                                    }).get();
                                 if(result){
-                                    setData.id = result.data.id;
-                                    that.setDev(setData);
-                                    initContent();
-                                }else if(result.message){
-                                    bootbox.alert(result.message);
+                                    let setData = {
+                                        'id': data.id || '',
+                                        'type': data.type,
+                                        'name': result,
+                                        'tags': tags,
+                                        'status': 0,
+                                        'content': data.content
+                                    };
+                                    HitabUtil.setRemoteOrLocal('/content/upsert', setData, function(result){
+                                        if(result){
+                                            setData.id = result.data.id;
+                                            that.setDev(setData);
+                                            initContent();
+                                        }else if(result.message){
+                                            bootbox.alert(result.message);
+                                        }
+                                    });
+                                }else{
+                                    that.showError('No Name to Upsert');
+                                    return false;
                                 }
-                            });
+                            }
                         }
                     }
                 });
@@ -317,6 +377,30 @@ window.HitabUtil = function(){
                 }
                 devType && that.initDev(devType);
                 that.initTodo();
+                // tags
+                if($('#float-icon').length > 0){
+                    HitabUtil.getLocalOrRemote('/tag/get/'+that.dev.type, null, function(data){
+                        that.tags = data;
+                        let dom = $('#search-tag');
+                        dom.html('<option value="">None</option>');
+                        for(let i in that.tags){
+                            dom.append('<option value="'+that.tags[i].id+'">'+that.tags[i].name+'('+that.tags[i].count+')'+'</option>');
+                        }
+                    });
+                }
+                // search
+                $('#submit-search').submit(function(){
+                    let object = that.serializeObject($(this));
+                    setTimeout(function(){
+                        HitabUtil.getLocalOrRemote('/content/get/'+that.dev.type+'/' + object.tag, {word: object.word}, function(data){
+                            that.appendSidebarContent(data);
+                        });
+                    }, 0);
+                    return false;
+                });
+                $('.auto-submit-search').change(function(){
+                    $('#submit-search').submit();
+                });
                 callback && callback();
             };
             that.db.onerror = function(event){

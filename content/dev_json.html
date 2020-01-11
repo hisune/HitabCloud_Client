@@ -45,9 +45,12 @@
             <li class="full-search">
                 <form id="submit-search">
                     <div class="input-group">
-                        <input name="word" type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                        <input name="word" type="text" class="form-control auto-submit-search" aria-label="Text input with segmented dropdown button">
                         <div class="input-group-append">
-                            <button type="submit" class=" btn btn-secondary fas fa-search"></button>
+                            <select class="form-control auto-submit-search" name="tag" id="search-tag"></select>
+                        </div>
+                        <div class="input-group-append">
+                            <button id="submit-search-btn" type="submit" class=" btn btn-secondary fas fa-search"></button>
                         </div>
                     </div>
                 </form>
