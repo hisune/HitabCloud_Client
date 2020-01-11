@@ -34,7 +34,7 @@ body{
 }
 #content-list{
     overflow: scroll;
-    height: calc(100% - 93px);
+    height: calc(100% - 38px);
 }
 .list-unstyled{
     margin-bottom: 0;
