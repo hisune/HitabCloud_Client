@@ -19,6 +19,15 @@ window.HitabUtil = function(){
             content: '{}',
         },
         db: null,
+        initTodo: function(count){
+            let dom = $('#todo');
+            if(!count) count = localStorage.getItem('todo') || 0;
+            if(count > 0){
+                dom.text(count);
+            }else{
+                dom.text('');
+            }
+        },
         showError: function(msg){
             let dom = $('#error-alert');
             dom.text(msg).fadeIn();
@@ -122,7 +131,6 @@ window.HitabUtil = function(){
                     callback && callback(result);
                 }
             });
-            console.log(that.user);
             if(that.user.id && that.user.secret){
                 that.request(uri, data, function(result, err){
                     if(err) return;
@@ -307,6 +315,7 @@ window.HitabUtil = function(){
                     });
                 }
                 devType && that.initDev(devType);
+                that.initTodo();
                 callback && callback();
             };
             that.db.onerror = function(event){

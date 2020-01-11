@@ -63,6 +63,12 @@ body{
     font-size: 12px;
     margin-left: 4px;
 }
+.event-status-0 .fc-list-item-title{
+    color: #007bff !important;
+}
+.event-status-0 .fc-title{
+    color: #fff !important;
+}
 /*dark mode*/
 #sidebar ul li a:hover {
     color: #fff !important;
