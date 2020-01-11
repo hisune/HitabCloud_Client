@@ -156,9 +156,7 @@ window.HitabUtil = function(){
                         });
                     }else{
                         if(result.hash){
-                            console.log(result);
                             that.getInDB(uri, function(hash){
-                                console.log(hash);
                                 if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
                                     that.setToDB(uri, result.hash, null, 'hashes');
                                     that.setToDB(uri, result.data, function(){
