@@ -152,6 +152,7 @@ $(document).ready(function(){
         calendar.render();
 
         HitabUtil.getLocalOrRemote('/content/get/3/', null, function(data){
+            todo = 0;
             calendar.batchRendering(function(){
                 for(let i in data){
                     if(data.hasOwnProperty(i)){
