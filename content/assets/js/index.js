@@ -4,7 +4,7 @@ window.HitabIndex = function(){
             item_group: "<li data-type='group' class='nav-item index-group-item context-menu {active}' data-id='{id}' data-name='{name}' data-sort='{sort}'>" +
                 "<a class='nav-link' href='#'>{name}</a>" +
                 "</li>",
-            item_url: "<div class='col text-truncate'>" +
+            item_url: "<div class='col-sm-2'>" +
                 "    <div data-type='url' class='info-box context-menu' data-id='{id}' data-sort='{sort}' data-name='{name}' data-link='{link}' data-group_id='{group_id}' data-color='{color}'>" +
                 "        <div class='info-box-content' style='background-color: {color}'>" +
                 "            <a href='{link}'>" +
@@ -325,11 +325,11 @@ window.HitabIndex = function(){
                 let icon = $('#index-icon'), left = HitabUtil.user.column_size;
                 if(data !== null) icon.empty();
                 if(data && data.length > 0){
-                    let html = '<div class="row">';
+                    let html = '<div class="row justify-content-center">';
                     for(let i in data){
                         if(data.hasOwnProperty(i)) {
                             if((parseInt(i)) % HitabUtil.user.column_size === 0){
-                                html += '</div><div class="row">';
+                                html += '</div><div class="row justify-content-center">';
                                 left = HitabUtil.user.column_size;
                             }
                             left --;
@@ -348,7 +348,7 @@ window.HitabIndex = function(){
                     }
                     if(left > 0){ // 补充剩余的col
                         for(let i=0;i<left;i++){
-                            html += '<div class="col"></div>';
+                            html += '<div class="col-sm-2"></div>';
                         }
                     }
                     html += '</div>';
