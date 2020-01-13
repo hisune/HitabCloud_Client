@@ -226,3 +226,14 @@ body{
     color: #fff;
     background-color: #000;
 }
+.dark-mode .tui-editor-contents table td{
+    color: rgb(244, 241, 236) !important;
+}
+.dark-mode .tui-editor-contents table td{
+    border-color: #343a40;
+}
+.dark-mode .tui-editor-contents table th{
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+
+}
