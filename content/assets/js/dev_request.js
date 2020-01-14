@@ -119,5 +119,12 @@ $(document).ready(function(){
                 $('[name='+field[i]+']').val(content[field[i]] || '');
             }
         });
+        $('.response-icon').click(function(){
+            bootbox.dialog({
+                title: 'HTTP Response Code',
+                message: $('#table-response').html(),
+                size: 'extra-large'
+            });
+        });
     }, 2);
 });

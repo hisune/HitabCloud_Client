@@ -39,6 +39,12 @@ body{
 .list-unstyled{
     margin-bottom: 0;
 }
+.modal-dialog .modal-content{
+    max-height: calc(100vh - 3rem);
+}
+.modal-dialog .modal-body{
+    overflow-y: scroll;
+}
 /*function*/
 #beian-code-refresh img{
     padding: 0;
@@ -87,6 +93,9 @@ body{
 .dark-mode label.custom-file-label:after{
     background-color: #343a40;
     color: #dee2e6;
+}
+.dark-mode .table, .dark-mode .table tr:hover{
+    color: rgba(255,255,255,.5);
 }
 /*dark mode - json*/
 .dark-mode div.jsoneditor-menu{
