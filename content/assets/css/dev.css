@@ -33,7 +33,7 @@ body{
     height: 100vh;
 }
 #content-list{
-    overflow: scroll;
+    overflow-y: scroll;
     height: calc(100% - 38px);
 }
 .list-unstyled{
@@ -150,6 +150,9 @@ body{
     background-color: #3D434B !important;
     border: 1px solid #3D434B !important;
 }
+.dark-mode .ace-jsoneditor .ace_indent-guide{
+    opacity: 0.5;
+}
 /*dark mode - calendar 需要手动修改main.min.css中的.fc-unthemed td.fc-today背景为#000*/
 .dark-mode .fc-unthemed td, .dark-mode .fc-unthemed th{
     border-color: #383839 !important;
@@ -242,5 +245,4 @@ body{
 .dark-mode .tui-editor-contents table th{
     background-color: #343a40 !important;
     border-color: #343a40 !important;
-
 }
