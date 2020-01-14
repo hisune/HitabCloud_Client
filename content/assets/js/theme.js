@@ -29,7 +29,7 @@ function initTheme() {
         }
     }
     let style = document.createElement('style');
-    style.innerText = '::-webkit-scrollbar{width:8px;height:8px;background-color:rgba(0,0,0,0);-webkit-border-radius:100px}::-webkit-scrollbar:hover{background-color:rgba(0,0,0,0.09)}::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.5);-webkit-border-radius:100px}::-webkit-scrollbar-thumb:active{background:rgba(0,0,0,0.61);-webkit-border-radius:100px}::-webkit-scrollbar-thumb:vertical{min-height:10px}::-webkit-scrollbar-thumb:horizontal{min-width:10px}';
+    style.innerText = '::-webkit-scrollbar{width:8px;height:8px;background-color:rgba(255,255,255,0.6);-webkit-border-radius:100px}::-webkit-scrollbar:hover{background-color:rgba(0,0,0,0.09)}::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.5);-webkit-border-radius:100px}::-webkit-scrollbar-thumb:active{background:rgba(0,0,0,0.61);-webkit-border-radius:100px}::-webkit-scrollbar-thumb:vertical{min-height:10px}::-webkit-scrollbar-thumb:horizontal{min-width:10px}';
     document.head.appendChild(style)
 }
 initTheme();

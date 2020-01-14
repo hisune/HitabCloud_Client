@@ -57,7 +57,7 @@
     <!-- Page Content  -->
     <div id="content">
         <form id="submit-request">
-            <div class="form-row align-items-center">
+            <div class="form-row">
                 <div class="col-2">
                     <div class="input-group">
                         <select name="request_method" class="form-control auto-save">
@@ -79,33 +79,29 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-8">
+                <div class="col-7">
                     <input name="request_url" class="form-control auto-save auto-submit" placeholder="URL">
                 </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary btn-auto-submit mb-2">Request</button>
+                </div>
             </div>
-            <div class="form-row align-items-center" style="margin-top: 8px;">
-                <div class="col-4">
+            <div class="form-row mb-2">
+                <div class="col-3">
                     Cookies
                     <textarea name="request_cookies" class="form-control auto-save" placeholder="Cookies, JSON字符串或'key:value'一行一个" rows="8"></textarea>
                 </div>
-                <div class="col-4">
+                <div class="col-3">
                     Headers
                     <textarea name="request_headers" class="form-control auto-save" placeholder="Headers, JSON字符串或'key:value'一行一个" rows="8"></textarea>
                 </div>
-                <div class="col-4">
+                <div class="col-6">
                     Body
                     <textarea name="request_body" class="form-control auto-save" placeholder="Body, JSON字符串或'key:value'一行一个" rows="8"></textarea>
                 </div>
             </div>
-            <div class="form-row align-items-center" style="margin-top: 8px;">
-                <div class="col"></div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary btn-auto-submit mb-2">Request</button>
-                </div>
-            </div>
         </form>
         <div class="alert alert-info" role="alert" style="display: none;" id="request-result"></div>
-
     </div>
 </div>
 

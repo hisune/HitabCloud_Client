@@ -204,7 +204,7 @@ window.HitabUtil = function(){
             return this;
         },
         enableCopy: function(){
-            let clipboard = new ClipboardJS('code', {
+            let clipboard = new ClipboardJS('code.copy', {
                 text: function(trigger) {
                     return $(trigger).text();
                 }

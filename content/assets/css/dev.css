@@ -38,7 +38,14 @@ body{
 }
 .list-unstyled{
     margin-bottom: 0;
-}/*request*/
+}
+/*function*/
+#beian-code-refresh img{
+    padding: 0;
+    height: calc(1.5em + .75rem + 2px);
+    margin-top: -0.42rem;
+}
+/*request*/
 #request-result pre{
     font-size: 12px;
 }
