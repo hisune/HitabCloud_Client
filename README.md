@@ -1,10 +1,10 @@
 #### Introduction
 一个云端可自动同步的chrome新标签页扩展，附带开发人员工具。
 
-需要从https://hisune.com获取云同步的`id`和`secret`才能正常使用。
+需要从[官网](https://hisune.com)获取云同步的`id`和`secret`才能正常使用。
 
 #### Chrome Webstore 
-https://chrome.google.com/webstore/detail/hitab-cloud/emednmcapifecehdmdpddihhifjejhkb
+[https://chrome.google.com/webstore/detail/hitab-cloud/emednmcapifecehdmdpddihhifjejhkb](https://chrome.google.com/webstore/detail/hitab-cloud/emednmcapifecehdmdpddihhifjejhkb)
 
 #### Features
 1. new tab书签
