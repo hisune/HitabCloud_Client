@@ -1,5 +1,7 @@
 #### Introduction
-一个云端可自动同步的chrome新标签页扩展，附带开发人员工具
+一个云端可自动同步的chrome新标签页扩展，附带开发人员工具。
+
+需要从https://hisune.com获取云同步的`id`和`secret`才能正常使用。
 
 #### Chrome Webstore 
 https://chrome.google.com/webstore/detail/hitab-cloud/emednmcapifecehdmdpddihhifjejhkb
@@ -11,3 +13,4 @@ https://chrome.google.com/webstore/detail/hitab-cloud/emednmcapifecehdmdpddihhif
 4. curl客户端
 5. 包括农历、节假日、todo的日历
 6. markdown云笔记
+7. 网络不可用时仍可正常使用
