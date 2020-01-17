@@ -13,7 +13,7 @@
   "manifest_version": 2,
   "minimum_chrome_version": "23",
   "name": "Hitab Cloud",
-  "permissions": [ "tabs", "http://*/*", "https://*/*", "webRequest","webRequestBlocking","notifications","alarms","storage"],
+  "permissions": [ "activeTab","http://*/*", "https://*/*", "webRequest","webRequestBlocking","notifications","alarms","storage"],
   "background" : {
     "scripts": ["/content/assets/js/listener.js"],
     "persistent" : true
