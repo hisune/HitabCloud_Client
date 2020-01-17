@@ -124,16 +124,18 @@
                         idcard = '',
                         year = currentYear - parseInt(old),
                         month1 = idCard.getRandom(2),//首位月份规则;
-                        month2 =month1 == '0' ? idCard.getRandom(9, 1) : idCard.getRandom(3),day1,day2;
-                    if(idcard.substr(8, 2) % 4 != 0) {//首位日期规则，闰年没有30几号
+                        month2 = month1 == '0' ? idCard.getRandom(9, 1) : idCard.getRandom(3),
+                        day1,
+                        day2;
+                    if((year+'').substr(2, 2) % 4 != 0) {//首位日期规则，闰年没有30几号
                         day1 = idCard.getRandom(4, 0);
                     }else {
                         day1 = idCard.getRandom(3, 0);
                     }
-                    if(idcard[12] == 0) {//末位日期规则
+                    if(day1 == 0) {//末位日期规则
                         day2 = idCard.getRandom(9, 1);
-                    }else if(idcard[12] > 0 && idcard[12] < 3) {
-                        if(idcard.substr(8, 2) % 4 != 0 && idcard.substr(10, 2) == '02') { // 判断闰年2月没有29号
+                    }else if(day1 > 0 && day1 < 3) {
+                        if((year+'').substr(2, 2) % 4 != 0 && month1 + '' + month2 == '02') { // 判断闰年2月没有29号
                             day2 = idCard.getRandom(9, 1);
                         }else {
                             day2 = idCard.getRandom(10);
