@@ -103,6 +103,78 @@
                 let rand = parseInt(Math.random()*90+10,10);
                 $('#beian-code-refresh').html('<img class="form-control" src="http://beian.miit.gov.cn/getVerifyCode?'+rand+'">');
             },
+            idCard = {
+                getRandom: function(max, base) {
+                    return Math.floor(Math.random() * max + (base ? base : 0));
+                },
+                cnNewID: function(idcard){
+                    var arrExp = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2]; // 加权因子
+                    var arrValid = [1, 0, "X", 9, 8, 7, 6, 5, 4, 3, 2]; // 校验码
+                    var sum = 0, idx;
+                    for (var j = 0; j < 17; j++) {
+                        // 对前17位数字与权值乘积求和
+                        sum += parseInt(idcard[j], 10) * arrExp[j];
+                    }
+                    return arrValid[sum % 11];
+                },
+                getIdcard: function(old){
+                    let currentYear = (new Date()).getFullYear(),
+                        currentMonth = (new Date()).getMonth(),
+                        currentDay = (new Date).getDate(),
+                        idcard = '',
+                        year = currentYear - parseInt(old),
+                        month1 = idCard.getRandom(2),//首位月份规则;
+                        month2 =month1 == '0' ? idCard.getRandom(9, 1) : idCard.getRandom(3),day1,day2;
+                    if(idcard.substr(8, 2) % 4 != 0) {//首位日期规则，闰年没有30几号
+                        day1 = idCard.getRandom(4, 0);
+                    }else {
+                        day1 = idCard.getRandom(3, 0);
+                    }
+                    if(idcard[12] == 0) {//末位日期规则
+                        day2 = idCard.getRandom(9, 1);
+                    }else if(idcard[12] > 0 && idcard[12] < 3) {
+                        if(idcard.substr(8, 2) % 4 != 0 && idcard.substr(10, 2) == '02') { // 判断闰年2月没有29号
+                            day2 = idCard.getRandom(9, 1);
+                        }else {
+                            day2 = idCard.getRandom(10);
+                        }
+                    }else {
+                        day2 = idCard.getRandom(2);
+                    }
+                    let monthCha = currentMonth + 1 - parseInt(month1 + '' + month2);
+                    if(monthCha < 0){
+                        year--;
+                    }else if(monthCha === 0 && currentDay - parseInt(day1 + '' + day2) < 0){
+                        year--;
+                    }
+                    for(var i = 0; i < 18; i++) {
+                        if(i < 6) {
+                            idcard += idCard.getRandom(10)
+                        }else if(i == 6) {
+                            idcard += (year+'')[0]; //年份第一位仅支持1和2
+                        }else if(i == 7) {
+                            idcard += (year+'')[1];//两位年份规则，仅支持19和20
+                        }else if(i == 8) {
+                            idcard += (year+'')[2]; //三位年份规则，仅支持193-199、200、201这些值
+                        }else if(i == 9) {
+                            idcard += (year+'')[3]; //四位年份规则,0-9
+                        }else if(i == 10) {
+                            idcard += month1;//首位月份规则
+                        }else if(i == 11) {
+                            idcard += month2;//末位月份规则
+                        }else if(i == 12) {
+                            idcard += day1;
+                        }else if(i == 13) {
+                            idcard += day2;
+                        }else if(i > 13 && i < 17) {
+                            idcard += idCard.getRandom(10)
+                        }else if(i == 17) {
+                            idcard += idCard.cnNewID(idcard);
+                        }
+                    }
+                    return idcard;
+                }
+            },
             writeResult = function(type, output, append, escape, copy){
                 if(typeof append === 'undefined') append = true;
                 if(typeof escape === 'undefined') escape = true;
@@ -287,8 +359,8 @@
                         }
                         break;
                     case 'location':
-                        $.getJSON('http://ip.taobao.com/service/getIpInfo.php?ip=' + (formData.location_string || 'myip'), function(json){
-                            writeResult(type, json.data.ip+':'+ json.data.country+' '+json.data.region+' '+json.data.city+' '+json.data.isp);
+                        $.getJSON('http://ip-api.com/json/'+formData.location_string+'?lang=zh-CN', function(json){
+                            writeResult(type, JSON.stringify(json, null, 2).replace(/\n/g, '<br>'), false, false, false);
                         });
                         break;
                     case 'xor':
@@ -360,17 +432,29 @@
                             });
                         }
                         break;
+                    case 'idcard':
+                        writeResult(type, idCard.getIdcard(formData.idcard_string || 18));
+                        break;
                 }
             }catch (e) {
                 writeResult(type, e.message || e);
             }
         });
         $('#location_ip').click(function(){
-            window.open('https://www.ip.cn/?ip='+$('#location_string').val());
+            window.open('https://ip-api.com/#'+$('#location_string').val());
         });
         $('#beian-code-refresh').click(function(){
             getBeianCode();
             $('#beian-code').focus();
         });
     });
+    let location = $('#location_string');
+
+    if(!location.val()){
+        try{
+            $.get('http://www.taobao.com/help/getip.php', function(data){
+                location.val(data.replace('ipCallback({ip:"', '').replace('"})', ''));
+            });
+        }catch (e) {}
+    }
 })(window, document);
