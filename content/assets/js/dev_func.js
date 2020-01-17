@@ -441,7 +441,7 @@
             }
         });
         $('#location_ip').click(function(){
-            window.open('https://ip-api.com/#'+$('#location_string').val());
+            window.open('https://ip-api.com/');
         });
         $('#beian-code-refresh').click(function(){
             getBeianCode();
