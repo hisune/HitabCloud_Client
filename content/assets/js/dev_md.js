@@ -22,6 +22,18 @@ $(document).ready(function(){
         });
         editor.eventManager.listen('convertorAfterMarkdownToHtmlConverted', function(){
             HitabUtil.setDev({content: editor.getMarkdown()});
+            if(HitabUtil.dev.id){
+                HitabUtil.setRemoteOrLocal('/content/upsert', {
+                    'id': HitabUtil.dev.id,
+                    'type': HitabUtil.dev.type,
+                    'name': HitabUtil.dev.name,
+                    'tags': HitabUtil.dev.tags,
+                    'status': 0,
+                    'content': HitabUtil.dev.content
+                }, function(result){
+
+                });
+            }
         });
         HitabUtil.sidebar(function(data){
             editor.setValue(data.content !== '{}' ? data.content : '')
