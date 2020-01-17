@@ -25,8 +25,8 @@ body{
 }
 #float-icon{
     position: fixed;
-    bottom: 10px;
-    right: 10px;
+    bottom: 0px;
+    right: 0px;
     font-size: 20px;
 }
 #sidebar{

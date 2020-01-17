@@ -1,5 +1,6 @@
 window.HitabUtil = function(){
     let user = JSON.parse(localStorage.getItem('user')) || {}, util = {
+        domain: 'https://hitab.hisune.com',
         user: {
             id: user.id || 0,
             secret: user.secret || '',
@@ -90,7 +91,7 @@ window.HitabUtil = function(){
             let that = this;
             $.ajax({
                 type: "POST",
-                url: 'https://hitab.hisune.com' + uri,
+                url: that.domain + uri,
                 data: data,
                 beforeSend: function(request) {
                     request.setRequestHeader("Authorization", util.user.id + ':' + util.user.secret);
