@@ -259,3 +259,6 @@ body{
     background-color: #343a40 !important;
     border-color: #343a40 !important;
 }
+.dark-mode .cm-s-default .cm-link {
+    color: #c1788b;
+}
