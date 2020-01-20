@@ -82,6 +82,10 @@ body{
 .event-status-0 .fc-title{
     color: #fff !important;
 }
+/*md*/
+.cloud-icon{
+    display: none;
+}
 /*dark mode*/
 #sidebar ul li a:hover {
     color: #fff !important;

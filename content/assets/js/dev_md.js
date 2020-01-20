@@ -1,28 +1,51 @@
 $(document).ready(function(){
     let upload = function(blob, callback){
-        let req = new XMLHttpRequest();
-        let formData = new FormData();
-        formData.append("file", blob);
-        req.onreadystatechange = function() {
-            if (req.readyState === 4) {
-                let data = JSON.parse(req.response);
-                if(data.message){
-                    bootbox.alert(data.message);
-                }else{
-                    callback(data.data);
+            let req = new XMLHttpRequest(),
+                formData = new FormData();
+            formData.append("file", blob);
+            req.onreadystatechange = function() {
+                if (req.readyState === 4) {
+                    let data = JSON.parse(req.response);
+                    if(data.message){
+                        bootbox.alert(data.message);
+                    }else{
+                        callback(data.data);
+                    }
                 }
+            };
+            req.open("POST", HitabUtil.domain + '/app/upload');
+            req.setRequestHeader('Authorization', HitabUtil.user.id + ':' + HitabUtil.user.secret);
+            req.send(formData);
+
+        },
+        prependName = function(){
+            let switchSection = $('.te-mode-switch-section'),
+                p = switchSection.find('span'),
+                text = '' + HitabUtil.dev.id+'. '+HitabUtil.dev.name;
+            if(p.length > 0){
+                p.text(text)
+            }else{
+                switchSection.prepend('<span>'+text+'</span>');
             }
         };
-        req.open("POST", HitabUtil.domain + '/app/upload');
-        req.setRequestHeader('Authorization', HitabUtil.user.id + ':' + HitabUtil.user.secret);
-        req.send(formData);
-    };
     HitabUtil.init(function(){
         let editor = new tui.Editor({
             el: document.querySelector('#content'),
             initialEditType: 'markdown',
             previewStyle: 'vertical',
             initialValue: HitabUtil.dev.content !== '{}' ? HitabUtil.dev.content : '',
+            events: {
+                load: function(){
+                    prependName();
+                },
+                change: function(){
+                    let content = editor.getMarkdown();
+                    if(HitabUtil.dev.content !== content){
+                        HitabUtil.setDev({content: content});
+                        $('.cloud-icon').show();
+                    }
+                }
+            },
             exts: [
                 {
                     name: 'chart',
@@ -38,23 +61,10 @@ $(document).ready(function(){
                 'table'
             ]
         });
-        editor.eventManager.listen('convertorAfterMarkdownToHtmlConverted', function(){
-            HitabUtil.setDev({content: editor.getMarkdown()});
-            if(HitabUtil.dev.id){
-                HitabUtil.setRemoteOrLocal('/content/upsert', {
-                    'id': HitabUtil.dev.id,
-                    'type': HitabUtil.dev.type,
-                    'name': HitabUtil.dev.name,
-                    'tags': HitabUtil.dev.tags,
-                    'status': 0,
-                    'content': HitabUtil.dev.content
-                }, function(result){
-
-                });
-            }
-        });
         HitabUtil.sidebar(function(data){
-            editor.setValue(data.content !== '{}' ? data.content : '')
+            editor.setValue(data.content !== '{}' ? data.content : '');
+            $('.cloud-icon').hide();
+            prependName();
         });
         $('.upload-icon').click(function(){
             let isImage = false;
@@ -109,6 +119,20 @@ $(document).ready(function(){
                     }
                 }
             });
+        });
+        $('.cloud-icon').click(function(){
+            if(HitabUtil.dev.id){
+                HitabUtil.setRemoteOrLocal('/content/upsert', {
+                    'id': HitabUtil.dev.id,
+                    'type': HitabUtil.dev.type,
+                    'name': HitabUtil.dev.name,
+                    'tags': HitabUtil.dev.tags,
+                    'status': 0,
+                    'content': HitabUtil.dev.content
+                }, function(result){
+
+                });
+            }
         });
     },4);
 });

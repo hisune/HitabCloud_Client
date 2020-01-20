@@ -172,6 +172,10 @@ window.HitabIndex = function(){
         },
         init: function(){
             let that = this;
+            // init
+            HitabUtil.init(function(){
+                that.initGroup();
+            });
             // bind click
             $('#index-cog').click(function(){
                 bootbox.dialog({
@@ -282,10 +286,6 @@ window.HitabIndex = function(){
                         $('#weather-iframe').height(event.data.value.height);
                         break;
                 }
-            });
-            // init
-            HitabUtil.init(function(){
-                that.initGroup();
             });
         },
         initGroup: function(){
