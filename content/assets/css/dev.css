@@ -262,3 +262,6 @@ body{
 .dark-mode .cm-s-default .cm-link {
     color: #c1788b;
 }
+.dark-mode .cm-s-default .cm-builtin{
+    color: aquamarine;
+}
