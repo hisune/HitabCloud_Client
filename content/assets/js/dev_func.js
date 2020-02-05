@@ -238,22 +238,25 @@
                     case 'code':
                         switch (formData.code_type) {
                             case '1':
-                                writeResult(type, btoa(formData.code_string));
+                                writeResult(type, btoa(formData.code_string), false);
                                 break;
                             case '2':
-                                writeResult(type, atob(formData.code_string));
+                                writeResult(type, atob(formData.code_string), false);
                                 break;
                             case '3':
-                                writeResult(type, encodeURIComponent(formData.code_string));
+                                writeResult(type, encodeURIComponent(formData.code_string), false);
                                 break;
                             case '4':
-                                writeResult(type, decodeURIComponent(formData.code_string));
+                                writeResult(type, decodeURIComponent(formData.code_string), false);
                                 break;
                             case '5':
-                                writeResult(type, $("<textarea/>").html(formData.code_string).text());
+                                writeResult(type, $("<textarea/>").html(formData.code_string).text(), false);
                                 break;
                             case '6':
-                                writeResult(type, $('<textarea/>').text(formData.code_string).html());
+                                writeResult(type, $('<textarea/>').text(formData.code_string).html(), false);
+                                break;
+                            case '7':
+                                writeResult(type, formData.code_string.split("").reverse().join(""), false);
                                 break;
                         }
                         break;
@@ -384,6 +387,7 @@
                             }
                         }
                         orderString = orderString.substr(0, orderString.length - 1) + formData.sign_key;
+                        console.log(orderString);
                         writeResult(type, formData.sign_type === 'md5' ? new Hashes.MD5().hex(orderString) : new Hashes.SHA1().hex(orderString));
                         break;
                     case 'beian':
