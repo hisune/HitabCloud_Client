@@ -241,7 +241,7 @@
                                 writeResult(type, btoa(formData.code_string), false);
                                 break;
                             case '2':
-                                writeResult(type, atob(formData.code_string), false);
+                                writeResult(type, atob(formData.code_string), false, true, false);
                                 break;
                             case '3':
                                 writeResult(type, encodeURIComponent(formData.code_string), false);
@@ -263,9 +263,9 @@
                     case 'query':
                         try{
                             let parse = JSON.parse(formData.query_string);
-                            writeResult(type, $.param(parse));
+                            writeResult(type, $.param(parse), true, true, false);
                         }catch (e) {
-                            writeResult(type, JSON.stringify(query2json(formData.query_string)));
+                            writeResult(type, JSON.stringify(query2json(formData.query_string)), true, true, false);
                         }
                         break;
                     case 'hex':
