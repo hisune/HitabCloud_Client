@@ -430,7 +430,7 @@
                                             result = $($(html).find('tr').html()).text().trim();
                                         }
                                     }
-                                    writeResult(type, result?result:'无数据', false, false);
+                                    writeResult(type, result?result:'无数据', false, false, false);
                                 },
                                 error: function(){
                                     writeResult(type, '返回失败', false);
