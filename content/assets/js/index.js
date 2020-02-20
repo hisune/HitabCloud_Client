@@ -56,8 +56,8 @@ window.HitabIndex = function(){
                 "<div class='form-group'>" +
                 "    <label>Column Size</label>" +
                 "    <select class='form-control' id='index-cos-column_size'>" +
-                "        <option value='4' selected>4</option>" +
-                "        <option value='5'>5</option>" +
+                "        <option value='4'>4</option>" +
+                "        <option value='5' selected>5</option>" +
                 "        <option value='6'>6</option>" +
                 "    </select>" +
                 "</div>" +
