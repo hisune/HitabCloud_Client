@@ -116,7 +116,7 @@ $(document).ready(function(){
         HitabUtil.sidebar(function(data){
             let content = JSON.parse(data.content), field = ['request_method', 'request_type', 'request_url', 'request_cookies', 'request_headers', 'request_body'];
             for(let i in field){
-                $('[name='+field[i]+']').val(content[field[i]] || '');
+                $('[name='+field[i]+']').val(content[field[i]] || '').change();
             }
         });
         $('.response-icon').click(function(){
