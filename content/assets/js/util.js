@@ -347,6 +347,7 @@ window.HitabUtil = function(){
                 let id = $(this).data('id');
                 $(this).siblings('.active').removeClass('active');
                 $(this).addClass('active');
+                $('#sidebar').toggleClass('active');
                 HitabUtil.getLocalOrRemote('/content/info/' + id, null, function(data){
                     if(data){
                         that.setDev(data);

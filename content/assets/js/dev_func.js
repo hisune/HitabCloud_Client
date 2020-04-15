@@ -11,7 +11,7 @@
                     strNum = '01234567890123456789',
                     strLow = 'abcdefghijklmnopqrstuvwxyz',
                     strUp = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
-                    strSpec = '!@#$%^&*<>?()_+=-[],.~',
+                    strSpec = '!@#$%&*_.',
                     count = 0;
                 if(num){
                     string += strNum;
@@ -257,6 +257,12 @@
                                 break;
                             case '7':
                                 writeResult(type, formData.code_string.split("").reverse().join(""), false);
+                                break;
+                            case '8':
+                                writeResult(type, formData.code_string.toUpperCase(), false);
+                                break;
+                            case '9':
+                                writeResult(type, formData.code_string.toLowerCase(), false);
                                 break;
                         }
                         break;

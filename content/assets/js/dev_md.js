@@ -104,6 +104,10 @@ $(document).ready(function(){
                         className: 'btn-primary',
                         callback: function(){
                             let path = $('#dev-upload-path').val();
+                            if(!path){
+                                bootbox.alert('No file to insert');
+                                return false;
+                            }
                             if(isImage){
                                 editor.exec('AddImage', {
                                     altText: $('#dev-upload-desc').val() || path,

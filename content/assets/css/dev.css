@@ -45,6 +45,9 @@ body{
 .modal-dialog .modal-body{
     overflow-y: scroll;
 }
+.content-list-li{
+    cursor: pointer;
+}
 /*function*/
 #beian-code-refresh img{
     padding: 0;
