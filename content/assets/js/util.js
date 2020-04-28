@@ -154,6 +154,7 @@ window.HitabUtil = function(){
                             message: result.message,
                             onHide: function(){}
                         });
+                        callback && callback([]);
                     }else{
                         if(result.hash){
                             that.getInDB(uri, function(hash){
@@ -398,6 +399,7 @@ window.HitabUtil = function(){
                 }
                 // search
                 $('#submit-search').submit(function(){
+                    $('#content-list').html('<div class="lds-ripple-container"><div class="lds-ripple"><div></div><div></div></div><div>loading</div></div>');
                     let object = that.serializeObject($(this));
                     setTimeout(function(){
                         HitabUtil.getLocalOrRemote('/content/get/'+that.dev.type+'/' + object.tag, {word: object.word}, function(data){
