@@ -43,6 +43,7 @@ $(document).ready(function(){
                     if(HitabUtil.dev.content !== content){
                         HitabUtil.setDev({content: content});
                         $('.cloud-icon').show();
+                        $('#dev-md-cloud').css('color', 'red');
                     }
                 }
             },
