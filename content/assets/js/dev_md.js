@@ -135,7 +135,9 @@ $(document).ready(function(){
                     'status': 0,
                     'content': HitabUtil.dev.content
                 }, function(result){
-
+                    if(result && typeof result == 'object' && !result.hasOwnProperty('message')){
+                        $('.cloud-icon').hide();
+                    }
                 });
             }
         });
