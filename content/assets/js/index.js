@@ -126,7 +126,7 @@ window.HitabIndex = function(){
                     $('#index-color-input').colorpicker();
                     $('#index-url-link').change(function(){
                         if($('#index-url-name').val() === ''){
-                            $('#index-url-name').val($(this).val().replace(/^(https?|ftp):\/\//, ''))
+                            $('#index-url-name').val($(this).val().replace(/^(https?|ftp):\/\/(www\.)*/, '').replace(/(\.).*/, ''))
                         }
                     });
                 },
