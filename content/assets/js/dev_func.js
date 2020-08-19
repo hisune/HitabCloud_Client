@@ -397,52 +397,32 @@
                         writeResult(type, formData.sign_type === 'md5' ? new Hashes.MD5().hex(orderString) : new Hashes.SHA1().hex(orderString));
                         break;
                     case 'beian':
-                        if(formData.beian_code){
-                            $.ajax({
-                                url: 'http://beian.miit.gov.cn/icp/publish/query/icpMemoInfo_searchExecute.action',
-                                type: 'post',
-                                data: {
-                                    siteName: '',
-                                    condition: 1,
-                                    siteDomain: formData.beian_string,
-                                    siteUrl: '',
-                                    mainLicense: '',
-                                    siteIp: '',
-                                    unitName: '',
-                                    mainUnitNature: -1,
-                                    certType: -1,
-                                    mainUnitCertNo: '',
-                                    verifyCode: formData.beian_code
-                                },
-                                success: function(html){
-                                    var result = $(html).find('td').filter(function() {
-                                        return $(this).text().indexOf(formData.beian_string) >= 0;
-                                    });
-                                    if(result){
-                                        result = result.html();
-                                        var wrapped = $("<div>" + result + "</div>");
-                                        if(wrapped.find('td').length > 0){
-                                            wrapped.find('td').each(function(){
-                                                var text = $(this).text().trim();
-                                                if(text.indexOf(formData.beian_string) >= 0){
-                                                    $(this).html('<a href="http://'+text+'" target="_blank">'+text+'</a> | <a href="https://whois.aliyun.com/whois/domain/'+formData.beian_string+'" target="_blank">whois</a> | <a href="https://www.ip.cn/?ip='+text+'" target="_blank">ip</a>');
-                                                }else{
-                                                    $(this).text(text);
-                                                }
-                                            });
-                                            wrapped.find('td:empty').parent().remove();
-                                            result = wrapped.html();
-                                        }else{
-                                            result = $($(html).find('tr').html()).text().trim();
+                        $.ajax({
+                            url: 'https://icp.chinaz.com/' + formData.beian_string,
+                            type: 'get',
+                            success: function(html){
+                                let first = $(html).find('#first'), result = '无数据';
+                                if(first.length > 0){
+                                    let tr1 = '<tr>', tr2 = '<tr>';
+                                    $(first.html()).each(function(){
+                                        let key = $(this).find('span').text().trim(),
+                                            value = $(this).find('p').text().trim().replace('查看截图', '');
+                                        if(['网站负责人', '快捷查询', '安全认证'].indexOf(key) === -1){
+                                            tr1 += '<td>'+key+'</td>';
+                                            tr2 += '<td>'+value+'</td>';
                                         }
-                                    }
-                                    writeResult(type, result?result:'无数据', false, false, false);
-                                },
-                                error: function(){
-                                    writeResult(type, '返回失败', false);
+                                    });
+                                    tr1 += '</tr>';
+                                    tr2 += '</tr>';
+                                    result = '<table style="width:100%">' + tr1+tr2 + '</table>';
                                 }
-                            });
-                        }
+
+                                writeResult(type, result, false, false, false);
+                            },
+                            error: function(){
+                                writeResult(type, '返回失败', false);
+                            }
+                        });
                         break;
                     case 'idcard':
                         writeResult(type, idCard.getIdcard(formData.idcard_string || 18));
