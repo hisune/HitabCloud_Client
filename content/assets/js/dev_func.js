@@ -238,10 +238,10 @@
                     case 'code':
                         switch (formData.code_type) {
                             case '1':
-                                writeResult(type, btoa(formData.code_string), false);
+                                writeResult(type, btoa(unescape(encodeURIComponent(formData.code_string))), false);
                                 break;
                             case '2':
-                                writeResult(type, atob(formData.code_string), false, true, false);
+                                writeResult(type, decodeURIComponent(escape(atob(formData.code_string))), false, true, false);
                                 break;
                             case '3':
                                 writeResult(type, encodeURIComponent(formData.code_string), false);
