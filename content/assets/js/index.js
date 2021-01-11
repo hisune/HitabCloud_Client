@@ -171,7 +171,7 @@ window.HitabIndex = function(){
             cb && cb();
         },
         init: function(){
-            let that = this;
+            let that = this, urlSearch = $('#url-search');
             // init
             HitabUtil.init(function(){
                 that.initGroup();
@@ -217,8 +217,13 @@ window.HitabIndex = function(){
                     }
                 });
             });
-            $('#index-search, #index-icon').click(function(){
-                $('#url-search').toggleClass('hidden');
+            $('#index-search').click(function(){
+                urlSearch.toggleClass('hidden');
+            });
+            $('#index-icon').click(function(){
+                if(!urlSearch.hasClass('hidden')){
+                    urlSearch.addClass('hidden');
+                }
             });
             $('#submit-url-search').submit(function(){
                 setTimeout(function(){
@@ -226,7 +231,7 @@ window.HitabIndex = function(){
                         let list = $('#content-list'), that = this;
                         list.empty();
                         for(let i in data){
-                            list.append('<li class="content-list-li" title="'+data[i].link+'" herf="'+data[i].link+'" target="_blank"><a>'+data[i].name+'</a></li>');
+                            list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'" target="_blank">'+data[i].name+'</a></li>');
                         }
                     });
                 }, 0);
