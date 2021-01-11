@@ -219,6 +219,10 @@ window.HitabIndex = function(){
             });
             $('#index-search').click(function(){
                 urlSearch.toggleClass('hidden');
+                let input = $('#url-search-input');
+                if(input.is(':visible')){
+                    input.focus();
+                }
             });
             $('#index-icon').click(function(){
                 if(!urlSearch.hasClass('hidden')){
