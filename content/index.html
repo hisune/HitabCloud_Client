@@ -13,50 +13,67 @@
     <title>New Tab</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-sm">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto" id="index-group">
-            <li class="nav-item context-normal active" data-type="group">
-                <a class="nav-link" href="#" id="index-group-add"><i class="fas fa-plus"></i></a>
-            </li>
-        </ul>
-        <div class="my-lg-0">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link" id="weather-text">
+<div id="container-index">
+    <nav class="navbar navbar-expand-sm">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="index-group">
+                <li class="nav-item context-normal active" data-type="group">
+                    <a class="nav-link" href="#" id="index-group-add"><i class="fas fa-plus"></i></a>
+                </li>
+            </ul>
+            <div class="my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" id="weather-text">
                         <span id="weather-text-top">
                             <font id="weather-text-week"></font>
                             <font id="weather-text-detail"></font>
                             <i id="weather-special"></i>
                         </span>
-                        <small id="weather-text-bottom"></small>
-                    </a>
-                    <div class="dropdown-menu" id="dropdown-weather">
-                        <iframe width="640" height="600" frameborder="0" id="weather-iframe" scrolling="no"></iframe>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="dev_calendar.html"><span class="badge badge-light" id="todo"></span></a>
-                </li>
-                <li class="nav-item" id="index-terminal">
-                    <a class="nav-link" href="dev_func.html"><i class="fas fa-terminal"></i></a>
-                </li>
-                <li class="nav-item" id="index-cog">
-                    <a class="nav-link" href="#"><i class="fas fa-cog"></i></a>
-                </li>
-            </ul>
+                            <small id="weather-text-bottom"></small>
+                        </a>
+                        <div class="dropdown-menu" id="dropdown-weather">
+                            <iframe width="640" height="600" frameborder="0" id="weather-iframe" scrolling="no"></iframe>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="dev_calendar.html"><span class="badge badge-light" id="todo"></span></a>
+                    </li>
+                    <li class="nav-item" id="index-terminal">
+                        <a class="nav-link" href="dev_func.html"><i class="fas fa-terminal"></i></a>
+                    </li>
+                    <li class="nav-item" id="index-cog">
+                        <a class="nav-link" href="#"><i class="fas fa-cog"></i></a>
+                    </li>
+                    <li class="nav-item" id="index-search">
+                        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
-
-<div class="container-fluid" id="index-icon">
-    <div class="row">
-        <div class='col-xs-4 col-md-1-5'>
-            <div class='info-box context-normal' data-type='url'>
-                <a id='index-url-add'><i class='fas fa-plus'></i></a>
+    </nav>
+    <div class="container-fluid" id="index-icon">
+        <div class="row">
+            <div class='col-xs-4 col-md-1-5'>
+                <div class='info-box context-normal' data-type='url'>
+                    <a id='index-url-add'><i class='fas fa-plus'></i></a>
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+<div id="url-search" class="navbar-dark bg-dark hidden">
+    <form id="submit-url-search">
+        <div class="input-group">
+            <input id="url-search-input" name="url" type="text" class="form-control auto-submit-search" aria-label="Text input with segmented dropdown button">
+            <div class="input-group-append">
+                <button id="submit-search-btn" type="submit" class=" btn btn-secondary fas fa-search"></button>
+            </div>
+        </div>
+    </form>
+    <ul class="list-unstyled full-search" id="content-list"></ul>
 </div>
 
 <div id="error-alert" class="alert alert-danger" role="alert"></div>

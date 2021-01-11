@@ -171,3 +171,49 @@ html.theme-init body{
     right: -15px;
     top: -5px;
 }
+#url-search{
+    min-width: 350px;
+    max-width: 350px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+}
+.content-list-li {
+    z-index: 1999;
+}
+#content-list{
+    overflow-y: scroll;
+    height: calc(100% - 38px);
+}
+
+#url-search ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#url-search ul li a {
+    padding: 10px;
+    /*font-size: 1.1em;*/
+    display: block;
+    cursor: pointer;
+}
+
+#url-search ul li a:hover {
+    color: #fff;
+    background: #6d7fcc;
+}
+
+#url-search ul li a i {
+    margin-right: 10px;
+}
+
+#url-search  ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+.hidden{
+    display: none;
+}

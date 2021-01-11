@@ -217,6 +217,21 @@ window.HitabIndex = function(){
                     }
                 });
             });
+            $('#index-search, #index-icon').click(function(){
+                $('#url-search').toggleClass('hidden');
+            });
+            $('#submit-url-search').submit(function(){
+                setTimeout(function(){
+                    HitabUtil.getLocalOrRemote('/url/search/' + $('#url-search-input').val(), {}, function(data){
+                        let list = $('#content-list'), that = this;
+                        list.empty();
+                        for(let i in data){
+                            list.append('<li class="content-list-li" title="'+data[i].link+'" herf="'+data[i].link+'" target="_blank"><a>'+data[i].name+'</a></li>');
+                        }
+                    });
+                }, 0);
+                return false;
+            });
             $('#index-group-add').click(function(){
                 that.groupUpsert();
             });
