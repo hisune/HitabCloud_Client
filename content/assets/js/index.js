@@ -234,8 +234,12 @@ window.HitabIndex = function(){
                     HitabUtil.getLocalOrRemote('/url/search/' + $('#url-search-input').val(), {}, function(data){
                         let list = $('#content-list'), that = this;
                         list.empty();
-                        for(let i in data){
-                            list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'" target="_blank">'+data[i].name+'</a></li>');
+                        if(data.length > 0){
+                            for(let i in data){
+                                list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'" target="_blank">'+data[i].name+'</a></li>');
+                            }
+                        }else{
+                            HitabUtil.showError('搜索结果为空');
                         }
                     });
                 }, 0);
