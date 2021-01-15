@@ -224,9 +224,11 @@ window.HitabIndex = function(){
                     input.focus();
                 }
             });
-            $('#index-icon').click(function(){
-                if(!urlSearch.hasClass('hidden')){
-                    urlSearch.addClass('hidden');
+            $('#container-index').click(function(e){
+                if(!$(e.target).hasClass('index-search-ele')){
+                    if(!urlSearch.hasClass('hidden')){
+                        urlSearch.addClass('hidden');
+                    }
                 }
             });
             $('#submit-url-search').submit(function(){
