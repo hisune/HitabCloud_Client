@@ -271,6 +271,9 @@ body{
 .dark-mode .hljs-keyword, .dark-mode .hljs-selector-tag, .dark-mode .hljs-subst{
     color: #a50 !important;
 }
+.dark-mode .hljs-tag, .hljs-name, .hljs-attribute{
+    color: cadetblue !important;
+}
 /*loading*/
 .lds-ripple-container{
     text-align: center;
