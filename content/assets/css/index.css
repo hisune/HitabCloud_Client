@@ -171,6 +171,11 @@ html.theme-init body{
     right: -15px;
     top: -5px;
 }
+#weather-text{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 #url-search{
     min-width: 350px;
     max-width: 350px;
@@ -220,4 +225,9 @@ a[aria-expanded="true"] {
 }
 .hidden{
     display: none;
+}
+#navbarSupportedContent ul li a{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
