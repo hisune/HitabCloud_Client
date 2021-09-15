@@ -264,6 +264,9 @@
                             case '9':
                                 writeResult(type, formData.code_string.toLowerCase(), false);
                                 break;
+                            case '10':
+                                writeResult(type, formData.code_string.length, false);
+                                break;
                         }
                         break;
                     case 'query':
