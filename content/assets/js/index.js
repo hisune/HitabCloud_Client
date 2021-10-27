@@ -238,8 +238,7 @@ window.HitabIndex = function(){
                         list.empty();
                         if(data.length > 0){
                             for(let i in data){
-                                list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'">'+data[i].name+'</a></li>');
-                            }
+                                list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'">['+data[i].group.name+']'+data[i].name+'</a></li>');                            }
                         }else{
                             HitabUtil.showError('搜索结果为空');
                         }
