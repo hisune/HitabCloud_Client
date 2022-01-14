@@ -26,10 +26,10 @@ window.HitabUtil = function(){
             "  <input name='icon-tag' {checked} type=\"checkbox\" class=\"custom-control-input\" value='{id}' id=\"icon-tag{id}\">\n" +
             "  <label class=\"custom-control-label\" for=\"icon-tag{id}\">{name} ({count})</label>" +
             "</div>",
-        tplIcon: function(){
+        tplIcon: function(dev){
             let tpl = "<div class='form-group'>" +
                 "    <label>Name</label>" +
-                "    <input type='text' value='"+this.dev.name+"' class='form-control' id='icon-name' placeholder='Enter a Name'>" +
+                "    <input type='text' value='"+dev.name+"' class='form-control' id='icon-name' placeholder='Enter a Name'>" +
                 "</div>" +
                 "<div class='form-group'>" +
                 "    <label>Tags</label>" +
@@ -37,7 +37,7 @@ window.HitabUtil = function(){
                 "</div>";
             let html = '';
             for(let i in this.tags){
-                let checked = this.dev.tags.indexOf(this.tags[i].id) >=0 ? 'checked' : '';
+                let checked = dev.tags.indexOf(this.tags[i].id) >=0 ? 'checked' : '';
                 html += this.format(this.tplTag, {id: this.tags[i].id, name: this.tags[i].name, checked: checked, count: this.tags[i].count});
             }
             return this.format(tpl, {tags: html});
@@ -267,18 +267,22 @@ window.HitabUtil = function(){
                         HitabUtil.setRemoteOrLocal('/content/del/' + data.id, null, function(){
                             that.setDev({id: 0, name: '', content: '{}', tags: []});
                             initContent();
+                            window.location.reload();
                         });
                     }
                 });
             });
             $('.upsert-icon').click(function(){
-                let data = that.dev;
+                let data = JSON.parse(JSON.stringify(that.dev));
                 if($(this).hasClass('upsert-icon-add')){
                     data.id = null;
+                    data.name = '';
+                    data.content = 'md';
+                    data.tags = [];
                 }
                 bootbox.dialog({
                     title: data.id ? 'Modify ID ' + data.id : 'Add a New Record',
-                    message: that.tplIcon(),
+                    message: that.tplIcon(data),
                     buttons: {
                         cancel: {
                             label: "Cancel!"
@@ -328,9 +332,16 @@ window.HitabUtil = function(){
                                     };
                                     HitabUtil.setRemoteOrLocal('/content/upsert', setData, function(result){
                                         if(result){
-                                            setData.id = result.data.id;
-                                            that.setDev(setData);
-                                            initContent();
+                                            if(setData.id){
+                                                that.setDev(setData);
+                                                initContent();
+                                                window.location.reload();
+                                            }else{
+                                                setData.id = result.data.id;
+                                                that.setDev(setData);
+                                                initContent();
+                                                window.location.reload();
+                                            }
                                         }else if(result.message){
                                             bootbox.alert(result.message);
                                         }
