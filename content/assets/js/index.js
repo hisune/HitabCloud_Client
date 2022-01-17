@@ -240,7 +240,7 @@ window.HitabIndex = function(){
                             for(let i in data){
                                 list.append('<li class="content-list-li" title="'+data[i].link+'"><a href="'+data[i].link+'">['+data[i].group.name+']'+data[i].name+'</a></li>');                            }
                         }else{
-                            HitabUtil.showError('搜索结果为空');
+                            list.append('<li class="content-list-li" title="搜索结果为空">&nbsp;搜索结果为空</li>');
                         }
                     });
                 }, 0);
