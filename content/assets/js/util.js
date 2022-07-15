@@ -277,7 +277,8 @@ window.HitabUtil = function(){
                 if($(this).hasClass('upsert-icon-add')){
                     data.id = null;
                     data.name = '';
-                    data.content = 'md';
+                    data.content = that.dev.type === 4 ? 'md' : '{}'
+                    ;
                     data.tags = [];
                 }
                 bootbox.dialog({
