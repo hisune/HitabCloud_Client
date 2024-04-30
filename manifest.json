@@ -12,7 +12,7 @@
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAob0K7nye9yZZpeWqDgWnB1Fmktb3GqNMyH8k5rn/2xEGrZtAMQ4EmGdZNKQ1E6zZivOe/HRbBlfiMQ3N9cVMyQ3clBwfeeC9BTpwGtPSjoZw9UuitqDpWbniIWwM1dvXtlLI1QAl7zEfOkG/6t748rmQsIAzGeA1CuUfUySuVubfvs8TN7yDgFQQJhc/pny9TQT84TGEk4Z9VA3tQCyF8qmZLMGjBouPlX4lf93UpX+B64YWdglh0RxGXCY5ZHqHw5it/v+74MOrsIeo531nGm+TJpCWajtIo6xTrN4cTZMEFb04KYCT4G94bKUnvwng0gcqfVG05AzCnt1ObquUpwIDAQAB",
   "manifest_version": 3,
-  "minimum_chrome_version": "23",
+  "minimum_chrome_version": "88",
   "name": "Hitab Cloud",
   "permissions": ["http://*/*", "https://*/*", "webRequest","webRequestBlocking","notifications"],
   "background" : {
