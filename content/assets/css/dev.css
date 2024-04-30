@@ -124,7 +124,7 @@ body{
 .dark-mode .jsoneditor{
     background-color: #191B1E !important;
 }
-.dark-mode .jsoneditor-popover, .jsoneditor-schema-error, div.jsoneditor td, div.jsoneditor textarea, div.jsoneditor th, div.jsoneditor-field, div.jsoneditor-value, pre.jsoneditor-preview{
+.dark-mode .jsoneditor-popover,.dark-mode .jsoneditor-schema-error,.dark-mode div.jsoneditor td,.dark-mode div.jsoneditor textarea,.dark-mode div.jsoneditor th,.dark-mode div.jsoneditor-field,.dark-mode div.jsoneditor-value,.dark-mode pre.jsoneditor-preview{
     color: #fff;
 }
 .dark-mode .jsoneditor-navigation-bar{

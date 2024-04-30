@@ -184,6 +184,8 @@ html.theme-init body{
     right: 0;
     bottom: 0;
     z-index: 1000;
+    background-color: #fff;
+    box-shadow: 0 6px 6px rgba(0, 0, 0, 0.2);
 }
 .content-list-li {
     z-index: 1999;
@@ -198,13 +200,22 @@ html.theme-init body{
     border-bottom: 1px solid #47748b;
 }
 /* search sidebar */
+#submit-url-search{
+    margin: 6px;
+}
+.dark-mode #url-search{
+    background-color: #343a40 !important;
+}
 #url-search ul li a {
     padding: 10px;
     /*font-size: 1.1em;*/
     display: block;
     cursor: pointer;
+    color: #000000;
 }
-
+.dark-mode #url-search ul li a {
+    color: #fff;
+}
 #url-search ul li a:hover{
     text-decoration: none;
 }

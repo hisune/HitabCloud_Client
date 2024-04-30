@@ -11,7 +11,7 @@
     "128": "/content/assets/icon/128.png"
   },
   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAob0K7nye9yZZpeWqDgWnB1Fmktb3GqNMyH8k5rn/2xEGrZtAMQ4EmGdZNKQ1E6zZivOe/HRbBlfiMQ3N9cVMyQ3clBwfeeC9BTpwGtPSjoZw9UuitqDpWbniIWwM1dvXtlLI1QAl7zEfOkG/6t748rmQsIAzGeA1CuUfUySuVubfvs8TN7yDgFQQJhc/pny9TQT84TGEk4Z9VA3tQCyF8qmZLMGjBouPlX4lf93UpX+B64YWdglh0RxGXCY5ZHqHw5it/v+74MOrsIeo531nGm+TJpCWajtIo6xTrN4cTZMEFb04KYCT4G94bKUnvwng0gcqfVG05AzCnt1ObquUpwIDAQAB",
-  "manifest_version": 2,
+  "manifest_version": 3,
   "minimum_chrome_version": "23",
   "name": "Hitab Cloud",
   "permissions": ["http://*/*", "https://*/*", "webRequest","webRequestBlocking","notifications"],
@@ -28,6 +28,6 @@
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "short_name": "Hitab Cloud",
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "web_accessible_resources": [ "/content/assets/icon/favicon.ico" ]
 }
