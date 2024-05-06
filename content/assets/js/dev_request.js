@@ -71,6 +71,7 @@ $(document).ready(function(){
                             +xhr.getAllResponseHeaders()
                             +'</pre>' +
                             '<code style="white-space: pre-wrap;">'+data+'</code>');
+                        chrome.runtime.sendMessage({call: 'cleanCookie'});
                     },
                     success: function(data, status, xhr){
                         try{
@@ -103,6 +104,7 @@ $(document).ready(function(){
                                 HitabUtil.showError('Invalid JSON Format!');
                             }
                         });
+                        chrome.runtime.sendMessage({call: 'cleanCookie'});
                     }
                 });
             });

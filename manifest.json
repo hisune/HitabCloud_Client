@@ -14,10 +14,12 @@
   "manifest_version": 3,
   "minimum_chrome_version": "88",
   "name": "Hitab Cloud",
-  "permissions": ["http://*/*", "https://*/*", "webRequest","webRequestBlocking","notifications"],
+  "permissions": ["webRequest","declarativeNetRequest","declarativeNetRequestWithHostAccess","notifications","favicon"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "background" : {
-    "scripts": ["/content/assets/js/listener.js"],
-    "persistent" : true
+    "service_worker": "/content/assets/js/listener.js"
   },
   "content_scripts": [{
     "js": ["/content/assets/js/weather.js"],
@@ -27,6 +29,5 @@
   }],
   "short_name": "Hitab Cloud",
   "update_url": "https://clients2.google.com/service/update2/crx",
-  "version": "1.0.22",
-  "web_accessible_resources": [ "/content/assets/icon/favicon.ico" ]
+  "version": "1.0.22"
 }

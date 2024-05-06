@@ -390,5 +390,5 @@ window.HitabIndex = function(){
     };
     return index;
 }(window, document);
-
+$('#favicon').attr('href', `chrome-extension://${chrome.runtime.id}/_favicon/?pageUrl=${encodeURIComponent('assets/icon/favicon.ico')}`)
 HitabIndex.init();
