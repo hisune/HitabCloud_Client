@@ -14,7 +14,7 @@
   "manifest_version": 3,
   "minimum_chrome_version": "88",
   "name": "Hitab Cloud",
-  "permissions": ["webRequest","declarativeNetRequest","declarativeNetRequestWithHostAccess","notifications","favicon"],
+  "permissions": ["declarativeNetRequest","declarativeNetRequestWithHostAccess","notifications","favicon"],
   "host_permissions": [
     "<all_urls>"
   ],
