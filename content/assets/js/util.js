@@ -141,36 +141,36 @@ window.HitabUtil = function(){
         },
         getLocalOrRemote: function(uri, data, callback){
             let that = this;
-            that.getInDB(uri, function(result){
-                if(result){
-                    callback && callback(result);
+            that.getInDB(uri, function(resultLocal){
+                if(resultLocal){
+                    callback && callback(resultLocal);
+                }
+                if(that.user.id && that.user.secret){
+                    that.request(uri, data, function(resultRemote, err){
+                        if(err) return;
+                        if(resultRemote && resultRemote.message){
+                            bootbox.alert({
+                                message: resultRemote.message,
+                                onHide: function(){}
+                            });
+                            callback && callback([]);
+                        }else{
+                            if(resultRemote.hash){
+                                that.getInDB(uri, function(hash){
+                                    if(hash !== resultRemote.hash || (hash && !resultLocal)){ // 只有本地缓存和线上不一致才重新回调线上数据
+                                        that.setToDB(uri, resultRemote.hash, null, 'hashes');
+                                        that.setToDB(uri, resultRemote.data, function(){
+                                            callback && callback(resultRemote.data);
+                                        });
+                                    }
+                                }, 'hashes');
+                            }else{
+                                callback && callback(resultRemote.data);
+                            }
+                        }
+                    });
                 }
             });
-            if(that.user.id && that.user.secret){
-                that.request(uri, data, function(result, err){
-                    if(err) return;
-                    if(result && result.message){
-                        bootbox.alert({
-                            message: result.message,
-                            onHide: function(){}
-                        });
-                        callback && callback([]);
-                    }else{
-                        if(result.hash){
-                            that.getInDB(uri, function(hash){
-                                if(hash !== result.hash){ // 只有本地缓存和线上不一致才重新回调线上数据
-                                    that.setToDB(uri, result.hash, null, 'hashes');
-                                    that.setToDB(uri, result.data, function(){
-                                        callback && callback(result.data);
-                                    });
-                                }
-                            }, 'hashes');
-                        }else{
-                            callback && callback(result.data);
-                        }
-                    }
-                });
-            }
         },
         setRemoteOrLocal: function(uri, data, callback, reload) {
             reload = reload || false;
@@ -262,7 +262,7 @@ window.HitabUtil = function(){
             });
             $('.delete-icon').click(function(){
                 let data = JSON.parse(localStorage.getItem(that.devType[that.dev.type])) || {};
-                bootbox.confirm('Are you sure to delete 【' + data.name + '】', function(result){
+                bootbox.confirm('Are you sure to delete 【' + data.id + '.' + data.name + '】', function(result){
                     if(result){
                         HitabUtil.setRemoteOrLocal('/content/del/' + data.id, null, function(){
                             that.setDev({id: 0, name: '', content: '{}', tags: []});
@@ -362,6 +362,7 @@ window.HitabUtil = function(){
                 $(this).addClass('active');
                 $('#sidebar').toggleClass('active');
                 HitabUtil.getLocalOrRemote('/content/info/' + id, null, function(data){
+                    console.log(data);
                     if(data){
                         that.setDev(data);
                         clickListItemCall && clickListItemCall(data);

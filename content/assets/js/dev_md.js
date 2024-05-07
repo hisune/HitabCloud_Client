@@ -19,24 +19,24 @@ $(document).ready(function(){
 
         },
         prependName = function(){
-            let switchSection = $('.te-mode-switch-section'),
+            let switchSection = $('.toastui-editor-mode-switch'),
                 p = switchSection.find('span'),
-                text = '' + HitabUtil.dev.id+'. '+HitabUtil.dev.name;
+                text = HitabUtil.dev.id ? ('' + HitabUtil.dev.id+'. '+HitabUtil.dev.name) : '';
             if(p.length > 0){
                 p.text(text)
             }else{
-                switchSection.prepend('<span>'+text+'</span>');
+                switchSection.prepend('<span style="float:left;margin: 6px;">'+text+'</span>');
             }
         };
     HitabUtil.init(function(){
-        let editor = new tui.Editor({
+        let editor = new toastui.Editor({
             el: document.querySelector('#content'),
             initialEditType: 'markdown',
             previewStyle: 'vertical',
             initialValue: HitabUtil.dev.content !== '{}' ? HitabUtil.dev.content : '',
             events: {
                 load: function(){
-                    prependName();
+                    setTimeout(() => {prependName()}, 0);
                 },
                 change: function(){
                     let content = editor.getMarkdown();
@@ -46,24 +46,11 @@ $(document).ready(function(){
                         $('#dev-md-cloud').css('color', 'red');
                     }
                 }
-            },
-            exts: [
-                {
-                    name: 'chart',
-                    minWidth: 100,
-                    maxWidth: 600,
-                    minHeight: 100,
-                    maxHeight: 300
-                },
-                'scrollSync',
-                'colorSyntax',
-                'uml',
-                'mark',
-                'table'
-            ]
+            }
         });
         HitabUtil.sidebar(function(data){
-            editor.setValue(data.content !== '{}' ? data.content : '');
+            console.log(data);
+            editor.setMarkdown(data.content !== '{}' ? data.content : '');
             $('.cloud-icon').hide();
             prependName();
         });
